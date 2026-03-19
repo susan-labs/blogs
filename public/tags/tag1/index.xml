@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tag1 on Susan Khanal</title>
+    <link>/tags/tag1/</link>
+    <description>Recent content in Tag1 on Susan Khanal</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© 2026 Susan Khanal</copyright>
+    <lastBuildDate>Wed, 06 Nov 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/tag1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My first post</title>
+      <link>/posts/my-first-blogpost/</link>
+      <pubDate>Wed, 06 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>/posts/my-first-blogpost/</guid>
+      <description>&lt;p&gt;Hello,&#xA;This is my First Post&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m attaching a photo&lt;/p&gt;&#xA;&lt;p&gt;!&lt;img src=&#34;/images/Pasted%20image%2020260315153635.png&#34; alt=&#34;Pasted image 20260315153635&#34;&gt;&#xA;git subtree split &amp;ndash;prefix public -b cloudflare-deploy&#xA;git push origin cloudflare-deploy:cloudflare &amp;ndash;force&#xA;git branch -D cloudflare-deploy&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>My second post</title>
+      <link>/posts/my-second-post/</link>
+      <pubDate>Wed, 06 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>/posts/my-second-post/</guid>
+      <description>&lt;p&gt;Hello, this is my second post&#xA;!&lt;img src=&#34;/images/Pasted%20image%2020260315153646.png&#34; alt=&#34;Pasted image 20260315153646&#34;&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,50 @@
+baseURL = "/"
+languageCode = "en-us"
+theme = "terminal"
+
+pagination.pagerSize = 5
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.highlight]
+  style = "monokai"
+  lineNos = false
+  codeFences = true
+
+[params]
+  contentTypeName = "posts"
+  themeColor = "green"
+  showMenuItems = 3
+  fullWidthTheme = false
+  centerTheme = true
+  showLastUpdated = true
+  enableGlobalLanguageMenu = false
+
+[languages]
+  [languages.en]
+    title = "Susan Khanal"
+    subtitle = "Homelab | Networking | IT"
+    keywords = "homelab, networking, IT, self-hosted, linux, pfsense"
+    copyright = "© 2026 Susan Khanal"
+    menuMore = "More posts"
+    readMore = "Read more →"
+    readOtherPosts = "Other posts"
+
+    [languages.en.params.logo]
+      logoText = "~/susan $"
+      logoHomeLink = "/"
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "posts"
+        name = "Posts"
+        url = "/posts"
+      [[languages.en.menu.main]]
+        identifier = "tags"
+        name = "Tags"
+        url = "/tags"
+      [[languages.en.menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about"

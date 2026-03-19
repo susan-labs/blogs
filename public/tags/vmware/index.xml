@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vmware on Susan Khanal</title>
+    <link>/tags/vmware/</link>
+    <description>Recent content in Vmware on Susan Khanal</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© 2026 Susan Khanal</copyright>
+    <lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup ESXi 8 in an OptiPlex</title>
+      <link>/posts/setup-esxi-8-in-an-optiplex/</link>
+      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/setup-esxi-8-in-an-optiplex/</guid>
+      <description>&lt;p&gt;Here in this blog, I&amp;rsquo;ve setup ESXi 8 on my simple optiplex host where I run my homelab.&#xA;The optiplex has 32 GB RAM, 1.5 TB disk and 12th Gen CPU which is decent to run couple of VMs and I only  run Linux vms majorly. See below:&#xA;!&lt;img src=&#34;/images/Pasted%20image%2020260315221630.png&#34; alt=&#34;Pasted image 20260315221630&#34;&gt;&#xA;!&lt;img src=&#34;/images/Pasted%20image%2020260315221704.png&#34; alt=&#34;Pasted image 20260315221704&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Let me know what you think about this.&lt;/p&gt;&#xA;&lt;p&gt;Ciao!!&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
