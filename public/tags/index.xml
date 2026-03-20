@@ -10,6 +10,13 @@
     <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Adguard</title>
+      <link>/tags/adguard/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/adguard/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Cloudflare</title>
       <link>/tags/cloudflare/</link>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
@@ -31,6 +38,13 @@
       <description></description>
     </item>
     <item>
+      <title>Dns</title>
+      <link>/tags/dns/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/dns/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Esxi</title>
       <link>/tags/esxi/</link>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
@@ -45,6 +59,13 @@
       <description></description>
     </item>
     <item>
+      <title>Linux</title>
+      <link>/tags/linux/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Networking</title>
       <link>/tags/networking/</link>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
@@ -56,6 +77,13 @@
       <link>/tags/security/</link>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
       <guid>/tags/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Self-Hosted</title>
+      <link>/tags/self-hosted/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/self-hosted/</guid>
       <description></description>
     </item>
     <item>
