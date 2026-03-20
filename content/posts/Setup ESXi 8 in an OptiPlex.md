@@ -19,7 +19,7 @@ I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during bo
 - HW feature incompatibility detected  
 
 This prevented ESXi from installing or booting successfully.
-![[Pasted image 20260320194350.png]]
+!![Image Description](/images/Pasted%20image%2020260320194350.png)
 ---
 
 ## 🛠️ Root Cause
@@ -79,7 +79,7 @@ cpuUniformityHardCheckPanic=FALSE
 3. Press **Enter** to continue boot
 
 This bypasses the CPU compatibility check.
-![[Pasted image 20260320194056.png]]
+!![Image Description](/images/Pasted%20image%2020260320194056.png)
 
 
 ---
@@ -126,7 +126,7 @@ Save and exit:
 ```
 ESC → :wq
 ```
-![[Pasted image 20260320194149.png]]
+!![Image Description](/images/Pasted%20image%2020260320194149.png)
 
 ---
 
@@ -161,10 +161,10 @@ Run:
 ```bash
 esxcli system settings kernel set -s cpuUniformityHardCheckPanic -v FALSE
 ```
-![[Pasted image 20260320194250.png]]
+!![Image Description](/images/Pasted%20image%2020260320194250.png)
 
-![[Pasted image 20260320194442.png]]
-![[Pasted image 20260320194508.png]]
+!![Image Description](/images/Pasted%20image%2020260320194442.png)
+!![Image Description](/images/Pasted%20image%2020260320194508.png)
 ---
 
 ## (Optional) Step 7: Prevent Future PSOD (Newer CPUs)

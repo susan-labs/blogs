@@ -7,7 +7,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="🧩 Problem I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a Pink Screen of Death (PSOD) with errors like:
-Fatal CPU mismatch on feature HW feature incompatibility detected This prevented ESXi from installing or booting successfully. ![[Pasted image 20260320194350.png]] 🛠️ Root Cause The issue is caused by modern Intel CPUs (12th Gen and newer) using a hybrid architecture with:
+Fatal CPU mismatch on feature HW feature incompatibility detected This prevented ESXi from installing or booting successfully. ! 🛠️ Root Cause The issue is caused by modern Intel CPUs (12th Gen and newer) using a hybrid architecture with:
 Performance cores (P-cores) Efficiency cores (E-cores) ESXi expects uniform CPU cores, so it crashes when it detects different core types.
 " />
 <meta name="keywords" content="" />
@@ -77,7 +77,7 @@ Performance cores (P-cores) Efficiency cores (E-cores) ESXi expects uniform CPU 
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)">
 <meta property="og:description" content="🧩 Problem I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a Pink Screen of Death (PSOD) with errors like:
-Fatal CPU mismatch on feature HW feature incompatibility detected This prevented ESXi from installing or booting successfully. ![[Pasted image 20260320194350.png]] 🛠️ Root Cause The issue is caused by modern Intel CPUs (12th Gen and newer) using a hybrid architecture with:
+Fatal CPU mismatch on feature HW feature incompatibility detected This prevented ESXi from installing or booting successfully. ! 🛠️ Root Cause The issue is caused by modern Intel CPUs (12th Gen and newer) using a hybrid architecture with:
 Performance cores (P-cores) Efficiency cores (E-cores) ESXi expects uniform CPU cores, so it crashes when it detects different core types.
 " />
 <meta property="og:url" content="/posts/setup-esxi-8-in-an-optiplex/" />
@@ -207,8 +207,8 @@ Performance cores (P-cores) Efficiency cores (E-cores) ESXi expects uniform CPU 
 <li>Fatal CPU mismatch on feature</li>
 <li>HW feature incompatibility detected</li>
 </ul>
-<h2 id="pasted-image-20260320194350png">This prevented ESXi from installing or booting successfully.
-![[Pasted image 20260320194350.png]]</h2>
+<h2 id="image-description">This prevented ESXi from installing or booting successfully.
+!<img src="/images/Pasted%20image%2020260320194350.png" alt="Image Description"></h2>
 <h2 id="-root-cause">🛠️ Root Cause<a href="#-root-cause" class="hanchor" ariaLabel="Anchor">#</a> </h2>
 <p>The issue is caused by modern Intel CPUs (12th Gen and newer) using a <strong>hybrid architecture</strong> with:</p>
 <ul>
@@ -249,7 +249,7 @@ Performance cores (P-cores) Efficiency cores (E-cores) ESXi expects uniform CPU 
 <li>Press <strong>Enter</strong> to continue boot</li>
 </ol>
 <p>This bypasses the CPU compatibility check.
-![[Pasted image 20260320194056.png]]</p>
+!<img src="/images/Pasted%20image%2020260320194056.png" alt="Image Description"></p>
 <hr>
 <h2 id="-step-3-install-esxi-normally">💿 Step 3: Install ESXi Normally<a href="#-step-3-install-esxi-normally" class="hanchor" ariaLabel="Anchor">#</a> </h2>
 <ul>
@@ -271,7 +271,7 @@ Password: (blank)
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kernelopt<span style="color:#f92672">=</span>weaselInstalled autoPartition<span style="color:#f92672">=</span>FALSE cpuUniformityHardCheckPanic<span style="color:#f92672">=</span>FALSE
 </span></span></code></pre></div><p>Save and exit:</p>
 <pre tabindex="0"><code>ESC → :wq
-</code></pre><p>![[Pasted image 20260320194149.png]]</p>
+</code></pre><p>!<img src="/images/Pasted%20image%2020260320194149.png" alt="Image Description"></p>
 <hr>
 <h2 id="-step-5-reboot-system">🔄 Step 5: Reboot System<a href="#-step-5-reboot-system" class="hanchor" ariaLabel="Anchor">#</a> </h2>
 <p>Press:</p>
@@ -289,9 +289,9 @@ Password: (blank)
 <pre tabindex="0"><code>ALT + F1
 </code></pre><p>Run:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>esxcli system settings kernel set -s cpuUniformityHardCheckPanic -v FALSE
-</span></span></code></pre></div><p>![[Pasted image 20260320194250.png]]</p>
-<h2 id="pasted-image-20260320194508png">![[Pasted image 20260320194442.png]]
-![[Pasted image 20260320194508.png]]</h2>
+</span></span></code></pre></div><p>!<img src="/images/Pasted%20image%2020260320194250.png" alt="Image Description"></p>
+<h2 id="image-description-1">!<img src="/images/Pasted%20image%2020260320194442.png" alt="Image Description">
+!<img src="/images/Pasted%20image%2020260320194508.png" alt="Image Description"></h2>
 <h2 id="optional-step-7-prevent-future-psod-newer-cpus">(Optional) Step 7: Prevent Future PSOD (Newer CPUs)<a href="#optional-step-7-prevent-future-psod-newer-cpus" class="hanchor" ariaLabel="Anchor">#</a> </h2>
 <p>For newer CPUs (e.g., 13th Gen), also run:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>esxcli system settings kernel set -s ignoreMsrFaults -v TRUE

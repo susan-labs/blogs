@@ -53,7 +53,7 @@ wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.14
 
 sudo systemctl daemon-reload sudo systemctl enable wazuh-agent sudo systemctl start wazuh-agent
 ```
-![[Pasted image 20260320192047.png]]
+!![Image Description](/images/Pasted%20image%2020260320192047.png)
 ---
 
 ## 🔍 Step 3: Enable SSH Monitoring
