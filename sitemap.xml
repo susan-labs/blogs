@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/tags/adguard/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/adguard-setup-for-blocking-ads/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/tags/cloudflare/</loc>
     <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -9,6 +15,9 @@
     <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/dell/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/dns/</loc>
     <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/esxi/</loc>
@@ -20,6 +29,9 @@
     <loc>/posts/setup-esxi-8-in-an-optiplex/</loc>
     <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tags/linux/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/tags/networking/</loc>
     <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -27,6 +39,9 @@
     <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/security/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/self-hosted/</loc>
     <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/</loc>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>blogtitle :: Susan Khanal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Network-wide ad blocking using AdGuard Home deployed as a VM on ESXi. Blocks ads, trackers, and malicious domains at the DNS level — before they reach any device on the network.
+🖥️ Environment Hypervisor: VMware ESXi VM OS: Ubuntu Server 24.04 LTS VM Specs: 3 vCPU, 4 GB RAM, 60GB disk AdGuard Home Version: Latest stable 🚀 Step 1: Create the VM on ESXi Created a new VM in the ESXi web UI with the following settings:
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/posts/adguard-setup-for-blocking-ads/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="/css/code.min.c4581949edab7810737609fc5568852bcd908945f14561e366dcd2300a370545.css">
+
+  
+  <link rel="stylesheet" href="/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="blogtitle">
+<meta property="og:description" content="Network-wide ad blocking using AdGuard Home deployed as a VM on ESXi. Blocks ads, trackers, and malicious domains at the DNS level — before they reach any device on the network.
+🖥️ Environment Hypervisor: VMware ESXi VM OS: Ubuntu Server 24.04 LTS VM Specs: 3 vCPU, 4 GB RAM, 60GB disk AdGuard Home Version: Latest stable 🚀 Step 1: Create the VM on ESXi Created a new VM in the ESXi web UI with the following settings:
+" />
+<meta property="og:url" content="/posts/adguard-setup-for-blocking-ads/" />
+<meta property="og:site_name" content="Susan Khanal" />
+
+  <meta property="og:image" content="/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-03-20 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    ~/susan $
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/posts" >Posts</a></li>
+        
+      
+        
+          <li><a href="/tags" >Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="/posts/adguard-setup-for-blocking-ads/">blogtitle</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-03-20&nbsp;[Updated:  2026-03-20]</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="/tags/homelab/">homelab</a>&nbsp;
+      
+      #<a href="/tags/networking/">networking</a>&nbsp;
+      
+      #<a href="/tags/adguard/">adguard</a>&nbsp;
+      
+      #<a href="/tags/dns/">dns</a>&nbsp;
+      
+      #<a href="/tags/self-hosted/">self-hosted</a>&nbsp;
+      
+      #<a href="/tags/linux/">linux</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>Network-wide ad blocking using AdGuard Home deployed as a VM on ESXi. Blocks ads, trackers, and malicious domains at the DNS level — before they reach any device on the network.</p>
+<hr>
+<h2 id="-environment">🖥️ Environment<a href="#-environment" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li><strong>Hypervisor:</strong> VMware ESXi</li>
+<li><strong>VM OS:</strong> Ubuntu Server 24.04 LTS</li>
+<li><strong>VM Specs:</strong> 3 vCPU, 4 GB RAM, 60GB disk</li>
+<li><strong>AdGuard Home Version:</strong> Latest stable</li>
+</ul>
+<hr>
+<h2 id="-step-1-create-the-vm-on-esxi">🚀 Step 1: Create the VM on ESXi<a href="#-step-1-create-the-vm-on-esxi" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Created a new VM in the ESXi web UI with the following settings:</p>
+<ul>
+<li>Guest OS: Ubuntu Linux (64-bit)</li>
+<li>3 vCPU, 4 GB RAM, 60GB disk thin-provisioned disk</li>
+<li>Network adapter on the LAN portgroup</li>
+</ul>
+<p>Mounted the Ubuntu Server ISO and completed a minimal install — no GUI, OpenSSH enabled during setup.</p>
+<hr>
+<h2 id="-step-2-install-adguard-home">📦 Step 2: Install AdGuard Home<a href="#-step-2-install-adguard-home" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>SSH into the VM, then download and run the installer:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -s -S -L https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | sh -s -- -v
+</span></span></code></pre></div><p>AdGuard Home installs to <code>/opt/AdGuardHome/</code> and registers itself as a systemd service automatically.</p>
+<p>Verify it&rsquo;s running:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl status AdGuardHome
+</span></span></code></pre></div><hr>
+<h2 id="-step-3-initial-web-setup">🌐 Step 3: Initial Web Setup<a href="#-step-3-initial-web-setup" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Access the setup wizard from a browser on the same network:</p>
+<pre tabindex="0"><code>http://&lt;VM-IP&gt;:3000
+</code></pre><p>During setup:</p>
+<ul>
+<li>Set the <strong>DNS server port</strong> to <code>53</code></li>
+<li>Set the <strong>web interface port</strong> to <code>80</code> (or <code>3000</code> to keep default)</li>
+<li>Create an admin username and password</li>
+</ul>
+<p>After setup, the dashboard is accessible at:</p>
+<pre tabindex="0"><code>http://&lt;VM-IP&gt;
+</code></pre><hr>
+<h2 id="-step-4-configure-blocklists">🛡️ Step 4: Configure Blocklists<a href="#-step-4-configure-blocklists" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Navigate to <strong>Filters → DNS Blocklists → Add blocklist</strong>.</p>
+<p>Blocklists added:</p>
+<table>
+  <thead>
+      <tr>
+          <th>List</th>
+          <th>Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>AdGuard DNS Filter</td>
+          <td>General ads and trackers</td>
+      </tr>
+      <tr>
+          <td>AdAway Default Blocklist</td>
+          <td>Mobile ads</td>
+      </tr>
+      <tr>
+          <td>Steven Black Unified Hosts</td>
+          <td>Ads, malware, fakenews</td>
+      </tr>
+      <tr>
+          <td>OISD Full</td>
+          <td>Comprehensive all-in-one</td>
+      </tr>
+  </tbody>
+</table>
+<p>After adding, click <strong>Update</strong> to sync all lists.
+!<img src="/images/Pasted%20image%2020260320204222.png" alt="Image Description"></p>
+<hr>
+<h2 id="-step-5-configure-upstream-dns">🔁 Step 5: Configure Upstream DNS<a href="#-step-5-configure-upstream-dns" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Navigate to <strong>Settings → DNS Settings → Upstream DNS servers</strong>.</p>
+<p>Set upstream resolvers:</p>
+<pre tabindex="0"><code>https://dns10.quad9.net/dns-query
+https://cloudflare-dns.com/dns-query
+1.1.1.1
+8.8.8.8
+</code></pre><p>Enable <strong>Parallel requests</strong> for faster resolution.</p>
+<hr>
+<h2 id="-step-6-network-wide-setup-router-dns">🏠 Step 6: Network-Wide Setup (Router DNS)<a href="#-step-6-network-wide-setup-router-dns" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>To apply AdGuard Home to all devices without touching each one individually, set the VM&rsquo;s IP as the primary DNS server on the router/gateway.</p>
+<p>On Home Router:</p>
+<pre tabindex="0"><code>Services → DHCP Server → DNS Servers → &lt;VM-IP&gt;
+</code></pre><p>On a home router:</p>
+<ul>
+<li>LAN Settings → DNS Server 1 → <code>&lt;VM-IP&gt;</code></li>
+<li>DNS Server 2 → <code>1.1.1.1</code> (fallback)</li>
+</ul>
+<p>All DHCP clients will now route DNS through AdGuard Home automatically.
+!<img src="/images/Pasted%20image%2020260320204242.png" alt="Image Description"></p>
+<hr>
+<h2 id="-verify-its-working">✅ Verify It&rsquo;s Working<a href="#-verify-its-working" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>From any device on the network, run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nslookup doubleclick.net &lt;VM-IP&gt;
+</span></span></code></pre></div><p>A blocked domain should return <code>0.0.0.0</code> — confirming AdGuard is intercepting it.</p>
+<p>The dashboard will also show live query logs and block statistics.</p>
+<hr>
+<h2 id="-notes">📌 Notes<a href="#-notes" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Set the VM to a <strong>static IP</strong> in ESXi or reserve it via DHCP on the router</li>
+<li>Enable <strong>DHCP leases</strong> in AdGuard Home (Settings → DHCP) if you want it to handle DHCP as well — not required for DNS-only setup</li>
+<li>AdGuard Home auto-updates can be triggered from the dashboard under <strong>Settings → Updates</strong></li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h">Other posts</span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+    
+    
+      <a href="/posts/setup-esxi-8-in-an-optiplex/" class="button inline next">
+         [<span class="button__text">Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</span>] &gt;
+      </a>
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>© 2026 Susan Khanal</span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

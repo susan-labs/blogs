@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dns on Susan Khanal</title>
+    <link>/tags/dns/</link>
+    <description>Recent content in Dns on Susan Khanal</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© 2026 Susan Khanal</copyright>
+    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>blogtitle</title>
+      <link>/posts/adguard-setup-for-blocking-ads/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/adguard-setup-for-blocking-ads/</guid>
+      <description>&lt;p&gt;Network-wide ad blocking using AdGuard Home deployed as a VM on ESXi. Blocks ads, trackers, and malicious domains at the DNS level — before they reach any device on the network.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-environment&#34;&gt;🖥️ Environment&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Hypervisor:&lt;/strong&gt; VMware ESXi&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;VM OS:&lt;/strong&gt; Ubuntu Server 24.04 LTS&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;VM Specs:&lt;/strong&gt; 3 vCPU, 4 GB RAM, 60GB disk&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;AdGuard Home Version:&lt;/strong&gt; Latest stable&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-step-1-create-the-vm-on-esxi&#34;&gt;🚀 Step 1: Create the VM on ESXi&lt;/h2&gt;&#xA;&lt;p&gt;Created a new VM in the ESXi web UI with the following settings:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
