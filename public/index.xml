@@ -10,7 +10,7 @@
     <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>blogtitle</title>
+      <title>AdGuard setup for blocking ads</title>
       <link>/posts/adguard-setup-for-blocking-ads/</link>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
       <guid>/posts/adguard-setup-for-blocking-ads/</guid>
@@ -43,6 +43,13 @@
       <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
       <guid>/about/</guid>
       <description>&lt;p&gt;Hi, I&amp;rsquo;m &lt;strong&gt;Susan Khanal&lt;/strong&gt; — an IT and networking enthusiast building and breaking things in my homelab.&lt;/p&gt;&#xA;&lt;p&gt;This blog is where I document everything I learn: network setups, self-hosted services, Linux configs, firewalls, and anything else I experiment with.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-youll-find-here&#34;&gt;What you&amp;rsquo;ll find here&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Step-by-step homelab tutorials with real screenshots&lt;/li&gt;&#xA;&lt;li&gt;Networking deep-dives (Linux, VLANs, DNS, VPNs)&lt;/li&gt;&#xA;&lt;li&gt;Self-hosted app setups (ESXi, Docker)&lt;/li&gt;&#xA;&lt;li&gt;IT study notes and certification prep&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;my-setup&#34;&gt;My setup&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Hypervisor&lt;/strong&gt;: VMWare ESXi&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;DNS&lt;/strong&gt;: AdGuard Home&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;SIEM&lt;/strong&gt;: Wazuh&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;RMM&lt;/strong&gt;: MeshCentral&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Cloud&lt;/strong&gt;: Oracle Linux&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;connect&#34;&gt;Connect&lt;/h2&gt;&#xA;&lt;p&gt;Got questions or found an error? Reach out at &lt;a href=&#34;mailto:susan@susankhanal.com&#34;&gt;susan@susankhanal.com&lt;/a&gt; — I&amp;rsquo;m always learning.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>/posts/untitled/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/posts/untitled/</guid>
+      <description></description>
     </item>
   </channel>
 </rss>

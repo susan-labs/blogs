@@ -1,5 +1,5 @@
 ---
-title: blogtitle
+title: AdGuard setup for blocking ads
 date: 2026-03-20
 draft: false
 tags:
