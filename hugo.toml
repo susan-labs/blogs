@@ -27,9 +27,14 @@ pagination.pagerSize = 5
     subtitle = "Homelab | Networking | IT"
     keywords = "homelab, networking, IT, self-hosted, linux, pfsense"
     copyright = "© 2026 Susan Khanal"
-    menuMore = "More posts"
-    readMore = "Read more →"
-    readOtherPosts = "Other posts"
+    #menuMore = "More posts"
+    #eadMore = "Read more →"
+    #readOtherPosts = "Other posts"
+    
+    [languages.en.params]
+      menuMore = "More posts"
+      readMore = "Read more →"
+      readOtherPosts = "Other posts"
 
     [languages.en.params.logo]
       logoText = "~/susan $"
