@@ -172,9 +172,9 @@
     
       <article class="post on-list">
         <h1 class="post-title">
-          <a href="/posts/setup-esxi-8-in-an-optiplex/">Setup ESXi 8 in an OptiPlex</a>
+          <a href="/posts/setup-esxi-8-in-an-optiplex/">Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</a>
         </h1>
-        <div class="post-meta"><time class="post-date">2026-03-15</time></div>
+        <div class="post-meta"><time class="post-date">2026-03-20</time></div>
 
         
           <span class="post-tags">
@@ -183,7 +183,13 @@
             
             #<a href="/tags/vmware/">vmware</a>&nbsp;
             
-            #<a href="/tags/virtualisation/">virtualisation</a>&nbsp;
+            #<a href="/tags/homelab/">homelab</a>&nbsp;
+            
+            #<a href="/tags/dell/">dell</a>&nbsp;
+            
+            #<a href="/tags/virtualization/">virtualization</a>&nbsp;
+            
+            #<a href="/tags/troubleshooting/">troubleshooting</a>&nbsp;
             
           </span>
         
@@ -193,12 +199,21 @@
 
         <div class="post-content">
           
-            <p>Here in this blog, I&rsquo;ve setup ESXi 8 on my simple optiplex host where I run my homelab.
-The optiplex has 32 GB RAM, 1.5 TB disk and 12th Gen CPU which is decent to run couple of VMs and I only  run Linux vms majorly. See below:
-!<img src="/images/Pasted%20image%2020260315221630.png" alt="Pasted image 20260315221630">
-!<img src="/images/Pasted%20image%2020260315221704.png" alt="Pasted image 20260315221704"></p>
-<p>Let me know what you think about this.</p>
-<p>Ciao!!</p>
+            <h2 id="-problem">🧩 Problem</h2>
+<p>I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a <strong>Pink Screen of Death (PSOD)</strong> with errors like:</p>
+<ul>
+<li>Fatal CPU mismatch on feature</li>
+<li>HW feature incompatibility detected</li>
+</ul>
+<h2 id="pasted-image-20260320194350png">This prevented ESXi from installing or booting successfully.
+![[Pasted image 20260320194350.png]]</h2>
+<h2 id="-root-cause">🛠️ Root Cause</h2>
+<p>The issue is caused by modern Intel CPUs (12th Gen and newer) using a <strong>hybrid architecture</strong> with:</p>
+<ul>
+<li>Performance cores (P-cores)</li>
+<li>Efficiency cores (E-cores)</li>
+</ul>
+<p>ESXi expects uniform CPU cores, so it crashes when it detects different core types.</p>
           
         </div>
 

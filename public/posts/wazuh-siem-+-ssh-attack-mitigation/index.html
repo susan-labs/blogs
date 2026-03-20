@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Setting up Wazuh SIEM with SSH Brute Force Attack Detection and Mitigation :: Susan Khanal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="🧩 Problem I wanted to simulate a real-world security environment in my homelab where I could detect and respond to SSH brute-force attacks and at the same time monitor my devices
+🛠️ Solution Overview I deployed Wazuh as a SIEM solution and configured it to detect SSH login attempts and automatically block malicious IPs.
+🔧 Environment Ubuntu Server (Wazuh Manager) Linux target machine (with SSH enabled) Public exposure via port forwarding 🚀 Step 1: Install Wazuh curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh &amp;&amp; sudo bash ./wazuh-install.sh -a After installation, accessed dashboard:
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/posts/wazuh-siem-&#43;-ssh-attack-mitigation/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="/css/code.min.c4581949edab7810737609fc5568852bcd908945f14561e366dcd2300a370545.css">
+
+  
+  <link rel="stylesheet" href="/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Setting up Wazuh SIEM with SSH Brute Force Attack Detection and Mitigation">
+<meta property="og:description" content="🧩 Problem I wanted to simulate a real-world security environment in my homelab where I could detect and respond to SSH brute-force attacks and at the same time monitor my devices
+🛠️ Solution Overview I deployed Wazuh as a SIEM solution and configured it to detect SSH login attempts and automatically block malicious IPs.
+🔧 Environment Ubuntu Server (Wazuh Manager) Linux target machine (with SSH enabled) Public exposure via port forwarding 🚀 Step 1: Install Wazuh curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh &amp;&amp; sudo bash ./wazuh-install.sh -a After installation, accessed dashboard:
+" />
+<meta property="og:url" content="/posts/wazuh-siem-&#43;-ssh-attack-mitigation/" />
+<meta property="og:site_name" content="Susan Khanal" />
+
+  <meta property="og:image" content="/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-03-20 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    ~/susan $
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/posts" >Posts</a></li>
+        
+      
+        
+          <li><a href="/tags" >Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="/posts/wazuh-siem-&#43;-ssh-attack-mitigation/">Setting up Wazuh SIEM with SSH Brute Force Attack Detection and Mitigation</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-03-20&nbsp;[Updated:  2026-03-20]</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="/tags/wazuh/">wazuh</a>&nbsp;
+      
+      #<a href="/tags/siem/">siem</a>&nbsp;
+      
+      #<a href="/tags/security/">security</a>&nbsp;
+      
+      #<a href="/tags/ssh/">ssh</a>&nbsp;
+      
+      #<a href="/tags/homelab/">homelab</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="-problem">🧩 Problem<a href="#-problem" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>I wanted to simulate a real-world security environment in my homelab where I could detect and respond to SSH brute-force attacks and at the same time monitor my devices</p>
+<hr>
+<h2 id="-solution-overview">🛠️ Solution Overview<a href="#-solution-overview" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>I deployed Wazuh as a SIEM solution and configured it to detect SSH login attempts and automatically block malicious IPs.</p>
+<hr>
+<h2 id="-environment">🔧 Environment<a href="#-environment" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Ubuntu Server (Wazuh Manager)</li>
+<li>Linux target machine (with SSH enabled)</li>
+<li>Public exposure via port forwarding</li>
+</ul>
+<hr>
+<h2 id="-step-1-install-wazuh">🚀 Step 1: Install Wazuh<a href="#-step-1-install-wazuh" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh <span style="color:#f92672">&amp;&amp;</span> sudo bash ./wazuh-install.sh -a
+</span></span></code></pre></div><p>After installation, accessed dashboard:</p>
+<pre tabindex="0"><code>https://&lt;server-ip&gt;
+</code></pre><hr>
+<h2 id="-step-2-deploy-wazuh-agent">🔌 Step 2: Deploy Wazuh Agent<a href="#-step-2-deploy-wazuh-agent" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>On monitored machine:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.14.3-1_amd64.deb <span style="color:#f92672">&amp;&amp;</span> sudo WAZUH_MANAGER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;domain.com&#39;</span> dpkg -i ./wazuh-agent_4.14.3-1_amd64.deb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo systemctl daemon-reload sudo systemctl enable wazuh-agent sudo systemctl start wazuh-agent
+</span></span></code></pre></div><h2 id="pasted-image-20260320192047png">![[Pasted image 20260320192047.png]]<a href="#pasted-image-20260320192047png" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h2 id="-step-3-enable-ssh-monitoring">🔍 Step 3: Enable SSH Monitoring<a href="#-step-3-enable-ssh-monitoring" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Verified that Wazuh is monitoring:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/var/log/auth.log
+</span></span></code></pre></div><p>Checked rules triggered for failed logins.</p>
+<hr>
+<h2 id="-step-4-simulate-ssh-attack">⚔️ Step 4: Simulate SSH Attack<a href="#-step-4-simulate-ssh-attack" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>From another machine:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh invaliduser@&lt;target-ip&gt;
+</span></span></code></pre></div><p>Repeated multiple failed attempts to simulate brute force.</p>
+<hr>
+<h2 id="-step-5-configure-active-response">🚨 Step 5: Configure Active Response<a href="#-step-5-configure-active-response" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Edited Wazuh config:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /var/ossec/etc/ossec.conf
+</span></span></code></pre></div><p>Added:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;active-response&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;command&gt;</span>firewall-drop<span style="color:#f92672">&lt;/command&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;location&gt;</span>local<span style="color:#f92672">&lt;/location&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;rules_id&gt;</span>5710<span style="color:#f92672">&lt;/rules_id&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/active-response&gt;</span>
+</span></span></code></pre></div><p>Restarted Wazuh:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl restart wazuh-manager
+</span></span></code></pre></div><hr>
+<h2 id="-step-6-verify-ip-blocking">🔐 Step 6: Verify IP Blocking<a href="#-step-6-verify-ip-blocking" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Checked iptables:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo iptables -L -n
+</span></span></code></pre></div><p>Confirmed attacker IP was blocked.</p>
+<hr>
+<h2 id="-result">📊 Result<a href="#-result" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Real-time SSH attack detection</li>
+<li>Automatic IP blocking</li>
+<li>Security visibility via dashboard</li>
+</ul>
+<hr>
+<h2 id="-challenges-faced">⚠️ Challenges Faced<a href="#-challenges-faced" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Time sync issues between agent and manager</li>
+<li>Logs not appearing initially due to wrong file permissions</li>
+<li>Firewall rules not applying correctly</li>
+</ul>
+<hr>
+<h2 id="-what-i-learned">🧠 What I Learned<a href="#-what-i-learned" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Basics of SIEM architecture</li>
+<li>Importance of log monitoring</li>
+<li>How automated response improves security posture</li>
+</ul>
+<hr>
+<h2 id="-future-improvements">🚀 Future Improvements<a href="#-future-improvements" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Integrate with email alerts</li>
+<li>Add geo-IP blocking</li>
+<li>Monitor additional services</li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h"></span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+      <a href="/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/" class="button inline prev">
+        &lt; [<span class="button__text">Setting up Cloudflare DDNS on Ubuntu for Dynamic Home IP</span>]
+      </a>
+    
+    
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>© 2026 Susan Khanal</span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

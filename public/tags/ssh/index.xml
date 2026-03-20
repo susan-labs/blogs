@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ssh on Susan Khanal</title>
+    <link>/tags/ssh/</link>
+    <description>Recent content in Ssh on Susan Khanal</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© 2026 Susan Khanal</copyright>
+    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setting up Wazuh SIEM with SSH Brute Force Attack Detection and Mitigation</title>
+      <link>/posts/wazuh-siem-&#43;-ssh-attack-mitigation/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/wazuh-siem-&#43;-ssh-attack-mitigation/</guid>
+      <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I wanted to simulate a real-world security environment in my homelab where I could detect and respond to SSH brute-force attacks and at the same time monitor my devices&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-solution-overview&#34;&gt;🛠️ Solution Overview&lt;/h2&gt;&#xA;&lt;p&gt;I deployed Wazuh as a SIEM solution and configured it to detect SSH login attempts and automatically block malicious IPs.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-environment&#34;&gt;🔧 Environment&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Ubuntu Server (Wazuh Manager)&lt;/li&gt;&#xA;&lt;li&gt;Linux target machine (with SSH enabled)&lt;/li&gt;&#xA;&lt;li&gt;Public exposure via port forwarding&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-step-1-install-wazuh&#34;&gt;🚀 Step 1: Install Wazuh&lt;/h2&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo bash ./wazuh-install.sh -a&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After installation, accessed dashboard:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

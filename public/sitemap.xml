@@ -2,43 +2,68 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/about/</loc>
-    <lastmod>2026-03-15T00:00:00+00:00</lastmod>
+    <loc>/tags/cloudflare/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/ddns/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/dell/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/esxi/</loc>
-    <lastmod>2026-03-15T00:00:00+00:00</lastmod>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2026-03-15T00:00:00+00:00</lastmod>
+    <loc>/tags/homelab/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/setup-esxi-8-in-an-optiplex/</loc>
-    <lastmod>2026-03-15T00:00:00+00:00</lastmod>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/networking/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/security/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/wazuh-siem-&#43;-ssh-attack-mitigation/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/siem/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/ssh/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/</loc>
-    <lastmod>2026-03-15T00:00:00+00:00</lastmod>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/</loc>
-    <lastmod>2026-03-15T00:00:00+00:00</lastmod>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/virtualisation/</loc>
-    <lastmod>2026-03-15T00:00:00+00:00</lastmod>
+    <loc>/tags/troubleshooting/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/ubuntu/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/virtualization/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/vmware/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/wazuh/</loc>
+    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/about/</loc>
     <lastmod>2026-03-15T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/my-first-blogpost/</loc>
-    <lastmod>2024-11-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/my-second-post/</loc>
-    <lastmod>2024-11-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/tag1/</loc>
-    <lastmod>2024-11-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/tag2/</loc>
-    <lastmod>2024-11-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/untitled/</loc>
   </url><url>
     <loc>/categories/</loc>
   </url>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Troubleshooting on Susan Khanal</title>
+    <link>/tags/troubleshooting/</link>
+    <description>Recent content in Troubleshooting on Susan Khanal</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© 2026 Susan Khanal</copyright>
+    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/troubleshooting/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</title>
+      <link>/posts/setup-esxi-8-in-an-optiplex/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/setup-esxi-8-in-an-optiplex/</guid>
+      <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a &lt;strong&gt;Pink Screen of Death (PSOD)&lt;/strong&gt; with errors like:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Fatal CPU mismatch on feature&lt;/li&gt;&#xA;&lt;li&gt;HW feature incompatibility detected&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;pasted-image-20260320194350png&#34;&gt;This prevented ESXi from installing or booting successfully.&#xA;![[Pasted image 20260320194350.png]]&lt;/h2&gt;&#xA;&lt;h2 id=&#34;-root-cause&#34;&gt;🛠️ Root Cause&lt;/h2&gt;&#xA;&lt;p&gt;The issue is caused by modern Intel CPUs (12th Gen and newer) using a &lt;strong&gt;hybrid architecture&lt;/strong&gt; with:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Performance cores (P-cores)&lt;/li&gt;&#xA;&lt;li&gt;Efficiency cores (E-cores)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;ESXi expects uniform CPU cores, so it crashes when it detects different core types.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
