@@ -115,41 +115,41 @@ if (-not $hasStagedChanges) {
 }
 
 # Step 7: Push all changes to the main branch
-Write-Host "Deploying to GitHub Master..."
+Write-Host "Deploying to GitHub main..."
 try {
-    git push origin master
+    git push origin main
 } catch {
-    Write-Error "Failed to push to Master branch."
+    Write-Error "Failed to push to main branch."
     exit 1
 }
 
-# Step 8: Push the public folder to the hostinger branch using subtree split and force push
-Write-Host "Deploying to GitHub Hostinger..."
+# Step 8: Push the public folder to the cloudflare branch using subtree split and force push
+Write-Host "Deploying to GitHub cloudflare..."
 
 # Check if the temporary branch exists and delete it
-$branchExists = git branch --list "hostinger-deploy"
+$branchExists = git branch --list "cloudflare-deploy"
 if ($branchExists) {
-    git branch -D hostinger-deploy
+    git branch -D cloudflare-deploy
 }
 
 # Perform subtree split
 try {
-    git subtree split --prefix public -b hostinger-deploy
+    git subtree split --prefix public -b cloudflare-deploy
 } catch {
     Write-Error "Subtree split failed."
     exit 1
 }
 
-# Push to hostinger branch with force
+# Push to cloudflare branch with force
 try {
-    git push origin hostinger-deploy:hostinger --force
+    git push origin cloudflare-deploy:cloudflare --force
 } catch {
-    Write-Error "Failed to push to hostinger branch."
-    git branch -D hostinger-deploy
+    Write-Error "Failed to push to cloudflare branch."
+    git branch -D cloudflare-deploy
     exit 1
 }
 
 # Delete the temporary branch
-git branch -D hostinger-deploy
+git branch -D cloudflare-deploy
 
 Write-Host "All done! Site synced, processed, committed, built, and deployed."
