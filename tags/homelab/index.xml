@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Susan Khanal</title>
-    <link>/posts/</link>
-    <description>Recent content in Posts on Susan Khanal</description>
+    <title>Homelab on Susan Khanal</title>
+    <link>/tags/homelab/</link>
+    <description>Recent content in Homelab on Susan Khanal</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2026 Susan Khanal</copyright>
     <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</title>
       <link>/posts/setup-esxi-8-in-an-optiplex/</link>

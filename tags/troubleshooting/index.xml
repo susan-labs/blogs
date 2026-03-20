@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Esxi on Susan Khanal</title>
-    <link>/tags/esxi/</link>
-    <description>Recent content in Esxi on Susan Khanal</description>
+    <title>Troubleshooting on Susan Khanal</title>
+    <link>/tags/troubleshooting/</link>
+    <description>Recent content in Troubleshooting on Susan Khanal</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2026 Susan Khanal</copyright>
     <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/tags/esxi/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/troubleshooting/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</title>
       <link>/posts/setup-esxi-8-in-an-optiplex/</link>

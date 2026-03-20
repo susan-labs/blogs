@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   
-    <title>Setup ESXi 8 in an OptiPlex :: Susan Khanal</title>
+    <title>Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch) :: Susan Khanal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Here in this blog, I&rsquo;ve setup ESXi 8 on my simple optiplex host where I run my homelab. The optiplex has 32 GB RAM, 1.5 TB disk and 12th Gen CPU which is decent to run couple of VMs and I only run Linux vms majorly. See below: ! !
-Let me know what you think about this.
-Ciao!!
+<meta name="description" content="🧩 Problem I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a Pink Screen of Death (PSOD) with errors like:
+Fatal CPU mismatch on feature HW feature incompatibility detected This prevented ESXi from installing or booting successfully. ![[Pasted image 20260320194350.png]] 🛠️ Root Cause The issue is caused by modern Intel CPUs (12th Gen and newer) using a hybrid architecture with:
+Performance cores (P-cores) Efficiency cores (E-cores) ESXi expects uniform CPU cores, so it crashes when it detects different core types.
 " />
 <meta name="keywords" content="" />
 
@@ -75,10 +75,10 @@ Ciao!!
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="Setup ESXi 8 in an OptiPlex">
-<meta property="og:description" content="Here in this blog, I&rsquo;ve setup ESXi 8 on my simple optiplex host where I run my homelab. The optiplex has 32 GB RAM, 1.5 TB disk and 12th Gen CPU which is decent to run couple of VMs and I only run Linux vms majorly. See below: ! !
-Let me know what you think about this.
-Ciao!!
+<meta property="og:title" content="Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)">
+<meta property="og:description" content="🧩 Problem I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a Pink Screen of Death (PSOD) with errors like:
+Fatal CPU mismatch on feature HW feature incompatibility detected This prevented ESXi from installing or booting successfully. ![[Pasted image 20260320194350.png]] 🛠️ Root Cause The issue is caused by modern Intel CPUs (12th Gen and newer) using a hybrid architecture with:
+Performance cores (P-cores) Efficiency cores (E-cores) ESXi expects uniform CPU cores, so it crashes when it detects different core types.
 " />
 <meta property="og:url" content="/posts/setup-esxi-8-in-an-optiplex/" />
 <meta property="og:site_name" content="Susan Khanal" />
@@ -89,7 +89,7 @@ Ciao!!
 <meta property="og:image:height" content="627">
 
 
-  <meta property="article:published_time" content="2026-03-15 00:00:00 &#43;0000 UTC" />
+  <meta property="article:published_time" content="2026-03-20 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -174,9 +174,9 @@ Ciao!!
     
 <article class="post">
   <h1 class="post-title">
-    <a href="/posts/setup-esxi-8-in-an-optiplex/">Setup ESXi 8 in an OptiPlex</a>
+    <a href="/posts/setup-esxi-8-in-an-optiplex/">Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</a>
   </h1>
-  <div class="post-meta"><time class="post-date">2026-03-15&nbsp;[Updated:  2026-03-15]</time></div>
+  <div class="post-meta"><time class="post-date">2026-03-20&nbsp;[Updated:  2026-03-20]</time></div>
 
   
     <span class="post-tags">
@@ -185,7 +185,13 @@ Ciao!!
       
       #<a href="/tags/vmware/">vmware</a>&nbsp;
       
-      #<a href="/tags/virtualisation/">virtualisation</a>&nbsp;
+      #<a href="/tags/homelab/">homelab</a>&nbsp;
+      
+      #<a href="/tags/dell/">dell</a>&nbsp;
+      
+      #<a href="/tags/virtualization/">virtualization</a>&nbsp;
+      
+      #<a href="/tags/troubleshooting/">troubleshooting</a>&nbsp;
       
     </span>
   
@@ -195,13 +201,133 @@ Ciao!!
   
 
   <div class="post-content"><div>
-        <p>Here in this blog, I&rsquo;ve setup ESXi 8 on my simple optiplex host where I run my homelab.
-The optiplex has 32 GB RAM, 1.5 TB disk and 12th Gen CPU which is decent to run couple of VMs and I only  run Linux vms majorly. See below:
-!<img src="/images/Pasted%20image%2020260315221630.png" alt="Pasted image 20260315221630">
-!<img src="/images/Pasted%20image%2020260315221704.png" alt="Pasted image 20260315221704"></p>
-<p>Let me know what you think about this.</p>
-<p>Ciao!!</p>
-
+        <h2 id="-problem">🧩 Problem<a href="#-problem" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a <strong>Pink Screen of Death (PSOD)</strong> with errors like:</p>
+<ul>
+<li>Fatal CPU mismatch on feature</li>
+<li>HW feature incompatibility detected</li>
+</ul>
+<h2 id="pasted-image-20260320194350png">This prevented ESXi from installing or booting successfully.
+![[Pasted image 20260320194350.png]]</h2>
+<h2 id="-root-cause">🛠️ Root Cause<a href="#-root-cause" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>The issue is caused by modern Intel CPUs (12th Gen and newer) using a <strong>hybrid architecture</strong> with:</p>
+<ul>
+<li>Performance cores (P-cores)</li>
+<li>Efficiency cores (E-cores)</li>
+</ul>
+<p>ESXi expects uniform CPU cores, so it crashes when it detects different core types.</p>
+<hr>
+<h2 id="-solution-overview">🛠️ Solution Overview<a href="#-solution-overview" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>I applied a workaround by disabling ESXi’s CPU uniformity check using a kernel boot parameter:</p>
+<pre tabindex="0"><code>cpuUniformityHardCheckPanic=FALSE
+</code></pre><p>This allowed ESXi to install and run successfully. Thanks and Credits due to : <a href="https://williamlam.com/2023/01/video-of-esxi-install-workaround-for-fatal-cpu-mismatch-on-feature-for-intel-12th-gen-cpus-and-newer.html">https://williamlam.com/2023/01/video-of-esxi-install-workaround-for-fatal-cpu-mismatch-on-feature-for-intel-12th-gen-cpus-and-newer.html</a></p>
+<hr>
+<h2 id="-environment">🔧 Environment<a href="#-environment" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Dell OptiPlex (Intel CPU with hybrid cores)</li>
+<li>ESXi 8 ISO</li>
+<li>Bootable USB installer</li>
+</ul>
+<hr>
+<h2 id="-step-1-boot-esxi-installer">🚀 Step 1: Boot ESXi Installer<a href="#-step-1-boot-esxi-installer" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Created bootable USB with ESXi 8</li>
+<li>Booted the OptiPlex from USB</li>
+</ul>
+<hr>
+<h2 id="-step-2-fix-psod-during-installation">⚠️ Step 2: Fix PSOD During Installation<a href="#-step-2-fix-psod-during-installation" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>When the ESXi installer starts:</p>
+<ol>
+<li>Press:</li>
+</ol>
+<pre tabindex="0"><code>SHIFT + O
+</code></pre><ol start="2">
+<li>Append the following to the boot line:</li>
+</ol>
+<pre tabindex="0"><code>cpuUniformityHardCheckPanic=FALSE
+</code></pre><ol start="3">
+<li>Press <strong>Enter</strong> to continue boot</li>
+</ol>
+<p>This bypasses the CPU compatibility check.
+![[Pasted image 20260320194056.png]]</p>
+<hr>
+<h2 id="-step-3-install-esxi-normally">💿 Step 3: Install ESXi Normally<a href="#-step-3-install-esxi-normally" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Follow the standard ESXi installation wizard</li>
+<li>Select disk</li>
+<li>Set root password</li>
+</ul>
+<p>⚠️ Important: <strong>Do NOT reboot immediately after installation</strong></p>
+<hr>
+<h2 id="-step-4-make-fix-persistent-before-reboot">🛠️ Step 4: Make Fix Persistent (Before Reboot)<a href="#-step-4-make-fix-persistent-before-reboot" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Press:</p>
+<pre tabindex="0"><code>ALT + F1
+</code></pre><p>Login:</p>
+<pre tabindex="0"><code>Username: root
+Password: (blank)
+</code></pre><p>Edit boot config:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi /vmfs/volumes/BOOTBANK1/boot.cfg
+</span></span></code></pre></div><p>Update the kernel line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kernelopt<span style="color:#f92672">=</span>weaselInstalled autoPartition<span style="color:#f92672">=</span>FALSE cpuUniformityHardCheckPanic<span style="color:#f92672">=</span>FALSE
+</span></span></code></pre></div><p>Save and exit:</p>
+<pre tabindex="0"><code>ESC → :wq
+</code></pre><p>![[Pasted image 20260320194149.png]]</p>
+<hr>
+<h2 id="-step-5-reboot-system">🔄 Step 5: Reboot System<a href="#-step-5-reboot-system" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Press:</p>
+<pre tabindex="0"><code>ALT + F2
+</code></pre><p>Then reboot the system.</p>
+<hr>
+<h2 id="-step-6-make-setting-permanent-after-install">⚙️ Step 6: Make Setting Permanent (After Install)<a href="#-step-6-make-setting-permanent-after-install" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Enable ESXi shell:</p>
+<ul>
+<li>Press <strong>F2</strong></li>
+<li>Go to Troubleshooting Options</li>
+<li>Enable ESXi Shell</li>
+</ul>
+<p>Then:</p>
+<pre tabindex="0"><code>ALT + F1
+</code></pre><p>Run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>esxcli system settings kernel set -s cpuUniformityHardCheckPanic -v FALSE
+</span></span></code></pre></div><p>![[Pasted image 20260320194250.png]]</p>
+<h2 id="pasted-image-20260320194508png">![[Pasted image 20260320194442.png]]
+![[Pasted image 20260320194508.png]]</h2>
+<h2 id="optional-step-7-prevent-future-psod-newer-cpus">(Optional) Step 7: Prevent Future PSOD (Newer CPUs)<a href="#optional-step-7-prevent-future-psod-newer-cpus" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>For newer CPUs (e.g., 13th Gen), also run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>esxcli system settings kernel set -s ignoreMsrFaults -v TRUE
+</span></span></code></pre></div><hr>
+<h2 id="-result">📊 Result<a href="#-result" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>ESXi 8 installed successfully</li>
+<li>No more PSOD during boot</li>
+<li>Stable homelab hypervisor running</li>
+</ul>
+<hr>
+<h2 id="-challenges-faced">⚠️ Challenges Faced<a href="#-challenges-faced" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Repeated PSOD during installation</li>
+<li>Not knowing boot parameter initially</li>
+<li>Kernel setting not persisting after reboot</li>
+</ul>
+<hr>
+<h2 id="-what-i-learned">🧠 What I Learned<a href="#-what-i-learned" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Modern CPUs use hybrid core architecture</li>
+<li>ESXi has strict CPU uniformity checks</li>
+<li>Kernel parameters can override hardware limitations</li>
+</ul>
+<hr>
+<h2 id="-future-improvements">🚀 Future Improvements<a href="#-future-improvements" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Disable E-cores in BIOS for cleaner setup</li>
+<li>Upgrade to supported hardware</li>
+<li>Explore vCenter integration</li>
+</ul>
+<hr>
+<h2 id="-key-takeaway">🔥 Key Takeaway<a href="#-key-takeaway" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>If you see a <strong>PSOD during ESXi install on newer Intel CPUs</strong>, it is most likely due to hybrid cores—and can be fixed using:</p>
+<pre tabindex="0"><code>cpuUniformityHardCheckPanic=FALSE
+</code></pre>
       </div></div>
 
   
@@ -215,8 +341,8 @@ The optiplex has 32 GB RAM, 1.5 TB disk and 12th Gen CPU which is decent to run 
     
     
     
-      <a href="/posts/my-first-blogpost/" class="button inline next">
-         [<span class="button__text">My first post</span>] &gt;
+      <a href="/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/" class="button inline next">
+         [<span class="button__text">Setting up Cloudflare DDNS on Ubuntu for Dynamic Home IP</span>] &gt;
       </a>
     
   </div>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ubuntu on Susan Khanal</title>
+    <link>/tags/ubuntu/</link>
+    <description>Recent content in Ubuntu on Susan Khanal</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© 2026 Susan Khanal</copyright>
+    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setting up Cloudflare DDNS on Ubuntu for Dynamic Home IP</title>
+      <link>/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/</guid>
+      <description>&lt;hr&gt;&#xA;&lt;p&gt;title: Setting up Cloudflare DDNS on Ubuntu using cloudflare-ddns-updater&#xA;date: 2026-03-20&#xA;draft: false&#xA;tags:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;cloudflare&lt;/li&gt;&#xA;&lt;li&gt;ddns&lt;/li&gt;&#xA;&lt;li&gt;homelab&lt;/li&gt;&#xA;&lt;li&gt;ubuntu&lt;/li&gt;&#xA;&lt;li&gt;automation&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;My home network uses a dynamic public IP address, which changes periodically. This breaks remote access to my self-hosted services.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-solution-overview&#34;&gt;🛠️ Solution Overview&lt;/h2&gt;&#xA;&lt;p&gt;I used an open-source tool (cloudflare-ddns-updater) to automatically update my Cloudflare DNS records whenever my public IP changes.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-environment&#34;&gt;🔧 Environment&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Ubuntu Server (DDNS host)&lt;/li&gt;&#xA;&lt;li&gt;Cloudflare domain&lt;/li&gt;&#xA;&lt;li&gt;API Token with DNS edit permissions&lt;/li&gt;&#xA;&lt;li&gt;Git installed&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-step-1-create-cloudflare-api-token&#34;&gt;🚀 Step 1: Create Cloudflare API Token&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Log in to Cloudflare&lt;/li&gt;&#xA;&lt;li&gt;Go to &lt;strong&gt;My Profile → API Tokens&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;li&gt;Create a token with:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Zone → DNS → Edit&lt;/li&gt;&#xA;&lt;li&gt;Zone Resources → Specific Zone (your domain)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;Save the token securely.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

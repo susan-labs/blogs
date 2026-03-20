@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>Tags :: Susan Khanal</title>
+    <title>Dell :: Susan Khanal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
 
   <meta name="robots" content="noodp" />
 
-<link rel="canonical" href="/tags/" />
+<link rel="canonical" href="/tags/dell/" />
 
 
 
@@ -72,9 +72,9 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Tags">
+<meta property="og:title" content="Dell">
 <meta property="og:description" content="" />
-<meta property="og:url" content="/tags/" />
+<meta property="og:url" content="/tags/dell/" />
 <meta property="og:site_name" content="Susan Khanal" />
 
   <meta property="og:image" content="/og-image.png">
@@ -86,7 +86,7 @@
 
 
 
-  <link href="/tags/index.xml" rel="alternate" type="application/rss+xml" title="Susan Khanal" />
+  <link href="/tags/dell/index.xml" rel="alternate" type="application/rss+xml" title="Susan Khanal" />
 
 
 
@@ -166,125 +166,73 @@
 
   <div class="content">
     
-  <div class="terms">
-    <h1>Tags</h1>
+  <h1>Posts for: #Dell</h1>
+  
+  <div class="posts">
     
-    <ul>
-      
-      
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/setup-esxi-8-in-an-optiplex/">Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2026-03-20</time></div>
+
         
+          <span class="post-tags">
+            
+            #<a href="/tags/esxi/">esxi</a>&nbsp;
+            
+            #<a href="/tags/vmware/">vmware</a>&nbsp;
+            
+            #<a href="/tags/homelab/">homelab</a>&nbsp;
+            
+            #<a href="/tags/dell/">dell</a>&nbsp;
+            
+            #<a href="/tags/virtualization/">virtualization</a>&nbsp;
+            
+            #<a href="/tags/troubleshooting/">troubleshooting</a>&nbsp;
+            
+          </span>
         
+
         
-          <li>
-            <a class="terms-title" href="/tags/cloudflare/">cloudflare [1]</a>
-          </li>
+
+
+        <div class="post-content">
+          
+            <h2 id="-problem">🧩 Problem</h2>
+<p>I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a <strong>Pink Screen of Death (PSOD)</strong> with errors like:</p>
+<ul>
+<li>Fatal CPU mismatch on feature</li>
+<li>HW feature incompatibility detected</li>
+</ul>
+<h2 id="pasted-image-20260320194350png">This prevented ESXi from installing or booting successfully.
+![[Pasted image 20260320194350.png]]</h2>
+<h2 id="-root-cause">🛠️ Root Cause</h2>
+<p>The issue is caused by modern Intel CPUs (12th Gen and newer) using a <strong>hybrid architecture</strong> with:</p>
+<ul>
+<li>Performance cores (P-cores)</li>
+<li>Efficiency cores (E-cores)</li>
+</ul>
+<p>ESXi expects uniform CPU cores, so it crashes when it detects different core types.</p>
+          
+        </div>
+
         
-      
+          <div>
+            <a class="read-more button inline" href="/posts/setup-esxi-8-in-an-optiplex/">[]</a>
+          </div>
         
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/ddns/">ddns [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/dell/">dell [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/esxi/">esxi [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/homelab/">homelab [3]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/networking/">networking [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/security/">security [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/siem/">siem [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/ssh/">ssh [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/troubleshooting/">troubleshooting [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/ubuntu/">ubuntu [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/virtualization/">virtualization [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/vmware/">vmware [1]</a>
-          </li>
-        
-      
-        
-        
-        
-          <li>
-            <a class="terms-title" href="/tags/wazuh/">wazuh [1]</a>
-          </li>
-        
-      
-    </ul>
+      </article>
+    
+
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+    
+    
+  </div>
+</div>
+
   </div>
 
   </div>

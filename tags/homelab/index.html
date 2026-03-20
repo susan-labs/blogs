@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>Vmware :: Susan Khanal</title>
+    <title>Homelab :: Susan Khanal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
 
   <meta name="robots" content="noodp" />
 
-<link rel="canonical" href="/tags/vmware/" />
+<link rel="canonical" href="/tags/homelab/" />
 
 
 
@@ -72,9 +72,9 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Vmware">
+<meta property="og:title" content="Homelab">
 <meta property="og:description" content="" />
-<meta property="og:url" content="/tags/vmware/" />
+<meta property="og:url" content="/tags/homelab/" />
 <meta property="og:site_name" content="Susan Khanal" />
 
   <meta property="og:image" content="/og-image.png">
@@ -86,7 +86,7 @@
 
 
 
-  <link href="/tags/vmware/index.xml" rel="alternate" type="application/rss+xml" title="Susan Khanal" />
+  <link href="/tags/homelab/index.xml" rel="alternate" type="application/rss+xml" title="Susan Khanal" />
 
 
 
@@ -166,7 +166,7 @@
 
   <div class="content">
     
-  <h1>Posts for: #Vmware</h1>
+  <h1>Posts for: #Homelab</h1>
   
   <div class="posts">
     
@@ -220,6 +220,135 @@
         
           <div>
             <a class="read-more button inline" href="/posts/setup-esxi-8-in-an-optiplex/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/">Setting up Cloudflare DDNS on Ubuntu for Dynamic Home IP</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2026-03-20</time></div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/cloudflare/">cloudflare</a>&nbsp;
+            
+            #<a href="/tags/ddns/">ddns</a>&nbsp;
+            
+            #<a href="/tags/networking/">networking</a>&nbsp;
+            
+            #<a href="/tags/homelab/">homelab</a>&nbsp;
+            
+            #<a href="/tags/ubuntu/">ubuntu</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <hr>
+<p>title: Setting up Cloudflare DDNS on Ubuntu using cloudflare-ddns-updater
+date: 2026-03-20
+draft: false
+tags:</p>
+<ul>
+<li>cloudflare</li>
+<li>ddns</li>
+<li>homelab</li>
+<li>ubuntu</li>
+<li>automation</li>
+</ul>
+<hr>
+<h2 id="-problem">🧩 Problem</h2>
+<p>My home network uses a dynamic public IP address, which changes periodically. This breaks remote access to my self-hosted services.</p>
+<hr>
+<h2 id="-solution-overview">🛠️ Solution Overview</h2>
+<p>I used an open-source tool (cloudflare-ddns-updater) to automatically update my Cloudflare DNS records whenever my public IP changes.</p>
+<hr>
+<h2 id="-environment">🔧 Environment</h2>
+<ul>
+<li>Ubuntu Server (DDNS host)</li>
+<li>Cloudflare domain</li>
+<li>API Token with DNS edit permissions</li>
+<li>Git installed</li>
+</ul>
+<hr>
+<h2 id="-step-1-create-cloudflare-api-token">🚀 Step 1: Create Cloudflare API Token</h2>
+<ol>
+<li>Log in to Cloudflare</li>
+<li>Go to <strong>My Profile → API Tokens</strong></li>
+<li>Create a token with:
+<ul>
+<li>Zone → DNS → Edit</li>
+<li>Zone Resources → Specific Zone (your domain)</li>
+</ul>
+</li>
+</ol>
+<p>Save the token securely.</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/wazuh-siem-&#43;-ssh-attack-mitigation/">Setting up Wazuh SIEM with SSH Brute Force Attack Detection and Mitigation</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2026-03-20</time></div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/wazuh/">wazuh</a>&nbsp;
+            
+            #<a href="/tags/siem/">siem</a>&nbsp;
+            
+            #<a href="/tags/security/">security</a>&nbsp;
+            
+            #<a href="/tags/ssh/">ssh</a>&nbsp;
+            
+            #<a href="/tags/homelab/">homelab</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <h2 id="-problem">🧩 Problem</h2>
+<p>I wanted to simulate a real-world security environment in my homelab where I could detect and respond to SSH brute-force attacks and at the same time monitor my devices</p>
+<hr>
+<h2 id="-solution-overview">🛠️ Solution Overview</h2>
+<p>I deployed Wazuh as a SIEM solution and configured it to detect SSH login attempts and automatically block malicious IPs.</p>
+<hr>
+<h2 id="-environment">🔧 Environment</h2>
+<ul>
+<li>Ubuntu Server (Wazuh Manager)</li>
+<li>Linux target machine (with SSH enabled)</li>
+<li>Public exposure via port forwarding</li>
+</ul>
+<hr>
+<h2 id="-step-1-install-wazuh">🚀 Step 1: Install Wazuh</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh <span style="color:#f92672">&amp;&amp;</span> sudo bash ./wazuh-install.sh -a
+</span></span></code></pre></div><p>After installation, accessed dashboard:</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/wazuh-siem-&#43;-ssh-attack-mitigation/">[]</a>
           </div>
         
       </article>

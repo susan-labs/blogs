@@ -7,41 +7,104 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2026 Susan Khanal</copyright>
-    <lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloudflare</title>
+      <link>/tags/cloudflare/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/cloudflare/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ddns</title>
+      <link>/tags/ddns/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/ddns/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dell</title>
+      <link>/tags/dell/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/dell/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Esxi</title>
       <link>/tags/esxi/</link>
-      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
       <guid>/tags/esxi/</guid>
       <description></description>
     </item>
     <item>
-      <title>Virtualisation</title>
-      <link>/tags/virtualisation/</link>
-      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>/tags/virtualisation/</guid>
+      <title>Homelab</title>
+      <link>/tags/homelab/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/homelab/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Networking</title>
+      <link>/tags/networking/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/networking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Security</title>
+      <link>/tags/security/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Siem</title>
+      <link>/tags/siem/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/siem/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ssh</title>
+      <link>/tags/ssh/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/ssh/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Troubleshooting</title>
+      <link>/tags/troubleshooting/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/troubleshooting/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ubuntu</title>
+      <link>/tags/ubuntu/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Virtualization</title>
+      <link>/tags/virtualization/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/virtualization/</guid>
       <description></description>
     </item>
     <item>
       <title>Vmware</title>
       <link>/tags/vmware/</link>
-      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
       <guid>/tags/vmware/</guid>
       <description></description>
     </item>
     <item>
-      <title>Tag1</title>
-      <link>/tags/tag1/</link>
-      <pubDate>Wed, 06 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>/tags/tag1/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tag2</title>
-      <link>/tags/tag2/</link>
-      <pubDate>Wed, 06 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>/tags/tag2/</guid>
+      <title>Wazuh</title>
+      <link>/tags/wazuh/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/wazuh/</guid>
       <description></description>
     </item>
   </channel>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Setting up Cloudflare DDNS on Ubuntu for Dynamic Home IP :: Susan Khanal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content=" title: Setting up Cloudflare DDNS on Ubuntu using cloudflare-ddns-updater date: 2026-03-20 draft: false tags:
+cloudflare ddns homelab ubuntu automation 🧩 Problem My home network uses a dynamic public IP address, which changes periodically. This breaks remote access to my self-hosted services.
+🛠️ Solution Overview I used an open-source tool (cloudflare-ddns-updater) to automatically update my Cloudflare DNS records whenever my public IP changes.
+🔧 Environment Ubuntu Server (DDNS host) Cloudflare domain API Token with DNS edit permissions Git installed 🚀 Step 1: Create Cloudflare API Token Log in to Cloudflare Go to My Profile → API Tokens Create a token with: Zone → DNS → Edit Zone Resources → Specific Zone (your domain) Save the token securely.
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="/css/code.min.c4581949edab7810737609fc5568852bcd908945f14561e366dcd2300a370545.css">
+
+  
+  <link rel="stylesheet" href="/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Setting up Cloudflare DDNS on Ubuntu for Dynamic Home IP">
+<meta property="og:description" content=" title: Setting up Cloudflare DDNS on Ubuntu using cloudflare-ddns-updater date: 2026-03-20 draft: false tags:
+cloudflare ddns homelab ubuntu automation 🧩 Problem My home network uses a dynamic public IP address, which changes periodically. This breaks remote access to my self-hosted services.
+🛠️ Solution Overview I used an open-source tool (cloudflare-ddns-updater) to automatically update my Cloudflare DNS records whenever my public IP changes.
+🔧 Environment Ubuntu Server (DDNS host) Cloudflare domain API Token with DNS edit permissions Git installed 🚀 Step 1: Create Cloudflare API Token Log in to Cloudflare Go to My Profile → API Tokens Create a token with: Zone → DNS → Edit Zone Resources → Specific Zone (your domain) Save the token securely.
+" />
+<meta property="og:url" content="/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/" />
+<meta property="og:site_name" content="Susan Khanal" />
+
+  <meta property="og:image" content="/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-03-20 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    ~/susan $
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/posts" >Posts</a></li>
+        
+      
+        
+          <li><a href="/tags" >Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/">Setting up Cloudflare DDNS on Ubuntu for Dynamic Home IP</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-03-20&nbsp;[Updated:  2026-03-20]</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="/tags/cloudflare/">cloudflare</a>&nbsp;
+      
+      #<a href="/tags/ddns/">ddns</a>&nbsp;
+      
+      #<a href="/tags/networking/">networking</a>&nbsp;
+      
+      #<a href="/tags/homelab/">homelab</a>&nbsp;
+      
+      #<a href="/tags/ubuntu/">ubuntu</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <hr>
+<p>title: Setting up Cloudflare DDNS on Ubuntu using cloudflare-ddns-updater
+date: 2026-03-20
+draft: false
+tags:</p>
+<ul>
+<li>cloudflare</li>
+<li>ddns</li>
+<li>homelab</li>
+<li>ubuntu</li>
+<li>automation</li>
+</ul>
+<hr>
+<h2 id="-problem">🧩 Problem<a href="#-problem" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>My home network uses a dynamic public IP address, which changes periodically. This breaks remote access to my self-hosted services.</p>
+<hr>
+<h2 id="-solution-overview">🛠️ Solution Overview<a href="#-solution-overview" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>I used an open-source tool (cloudflare-ddns-updater) to automatically update my Cloudflare DNS records whenever my public IP changes.</p>
+<hr>
+<h2 id="-environment">🔧 Environment<a href="#-environment" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Ubuntu Server (DDNS host)</li>
+<li>Cloudflare domain</li>
+<li>API Token with DNS edit permissions</li>
+<li>Git installed</li>
+</ul>
+<hr>
+<h2 id="-step-1-create-cloudflare-api-token">🚀 Step 1: Create Cloudflare API Token<a href="#-step-1-create-cloudflare-api-token" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ol>
+<li>Log in to Cloudflare</li>
+<li>Go to <strong>My Profile → API Tokens</strong></li>
+<li>Create a token with:
+<ul>
+<li>Zone → DNS → Edit</li>
+<li>Zone Resources → Specific Zone (your domain)</li>
+</ul>
+</li>
+</ol>
+<p>Save the token securely.</p>
+<hr>
+<h2 id="-step-2-get-required-ids">🌐 Step 2: Get Required IDs<a href="#-step-2-get-required-ids" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>You need:</p>
+<ul>
+<li>Zone ID</li>
+<li>DNS Record ID</li>
+</ul>
+<p>You can find these from:</p>
+<ul>
+<li>Cloudflare dashboard</li>
+<li>Or via API calls</li>
+</ul>
+<hr>
+<h2 id="-step-3-clone-the-repository">📦 Step 3: Clone the Repository<a href="#-step-3-clone-the-repository" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install git -y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/K0p1-Git/cloudflare-ddns-updater.git
+</span></span><span style="display:flex;"><span>cd cloudflare-ddns-updater
+</span></span></code></pre></div><hr>
+<h2 id="-step-4-configure-the-script">⚙️ Step 4: Configure the Script<a href="#-step-4-configure-the-script" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Edit the configuration file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano cloudflare-template.sh
+</span></span></code></pre></div><p>Update the following values:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-env" data-lang="env"><span style="display:flex;"><span>CF_API_TOKEN<span style="color:#f92672">=</span>your_api_token
+</span></span><span style="display:flex;"><span>CF_ZONE_ID<span style="color:#f92672">=</span>your_zone_id
+</span></span><span style="display:flex;"><span>CF_RECORD_ID<span style="color:#f92672">=</span>your_record_id
+</span></span><span style="display:flex;"><span>CF_RECORD_NAME<span style="color:#f92672">=</span>home.yourdomain.com
+</span></span></code></pre></div><hr>
+<h2 id="-step-5-run-the-script-manually">🧪 Step 5: Run the Script Manually<a href="#-step-5-run-the-script-manually" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash update.sh
+</span></span></code></pre></div><p>This will:</p>
+<ul>
+<li>Check your current public IP</li>
+<li>Compare with Cloudflare DNS</li>
+<li>Update if there is a change</li>
+</ul>
+<hr>
+<h2 id="-step-6-automate-with-cron">⏱️ Step 6: Automate with Cron<a href="#-step-6-automate-with-cron" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Edit crontab:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crontab -e
+</span></span></code></pre></div><p>Add:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>*/1 * * * * cd /home/youruser/cloudflare-ddns-updater <span style="color:#f92672">&amp;&amp;</span> bash update.sh &gt;&gt; ddns.log 2&gt;&amp;<span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><hr>
+<h2 id="-step-7-verify-updates">🔍 Step 7: Verify Updates<a href="#-step-7-verify-updates" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Check logs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat ddns.log
+</span></span></code></pre></div><p>Or verify DNS:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dig home.yourdomain.com
+</span></span></code></pre></div><hr>
+<h2 id="-result">📊 Result<a href="#-result" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>DNS automatically updates when IP changes</li>
+<li>Stable domain access to homelab services</li>
+<li>Fully automated with minimal overhead</li>
+</ul>
+<hr>
+<h2 id="-challenges-faced">⚠️ Challenges Faced<a href="#-challenges-faced" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Incorrect API token permissions</li>
+<li>Wrong Zone ID / Record ID</li>
+<li>Script path issues in cron</li>
+<li>Logs not generating initially</li>
+</ul>
+<hr>
+<h2 id="-what-i-learned">🧠 What I Learned<a href="#-what-i-learned" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Practical use of APIs for automation</li>
+<li>How DNS updates work behind the scenes</li>
+<li>Importance of logging in automation scripts</li>
+</ul>
+<hr>
+<h2 id="-future-improvements">🚀 Future Improvements<a href="#-future-improvements" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Use Cloudflare Tunnel (no port forwarding required)</li>
+<li>Add alerting (email/Discord) on IP change</li>
+<li>Run script as a systemd service instead of cron</li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h"></span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+      <a href="/posts/setup-esxi-8-in-an-optiplex/" class="button inline prev">
+        &lt; [<span class="button__text">Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</span>]
+      </a>
+    
+    
+      ::
+    
+    
+      <a href="/posts/wazuh-siem-&#43;-ssh-attack-mitigation/" class="button inline next">
+         [<span class="button__text">Setting up Wazuh SIEM with SSH Brute Force Attack Detection and Mitigation</span>] &gt;
+      </a>
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>© 2026 Susan Khanal</span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

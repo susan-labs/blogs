@@ -7,42 +7,35 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2026 Susan Khanal</copyright>
-    <lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</title>
+      <link>/posts/setup-esxi-8-in-an-optiplex/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/setup-esxi-8-in-an-optiplex/</guid>
+      <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a &lt;strong&gt;Pink Screen of Death (PSOD)&lt;/strong&gt; with errors like:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Fatal CPU mismatch on feature&lt;/li&gt;&#xA;&lt;li&gt;HW feature incompatibility detected&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;pasted-image-20260320194350png&#34;&gt;This prevented ESXi from installing or booting successfully.&#xA;![[Pasted image 20260320194350.png]]&lt;/h2&gt;&#xA;&lt;h2 id=&#34;-root-cause&#34;&gt;🛠️ Root Cause&lt;/h2&gt;&#xA;&lt;p&gt;The issue is caused by modern Intel CPUs (12th Gen and newer) using a &lt;strong&gt;hybrid architecture&lt;/strong&gt; with:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Performance cores (P-cores)&lt;/li&gt;&#xA;&lt;li&gt;Efficiency cores (E-cores)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;ESXi expects uniform CPU cores, so it crashes when it detects different core types.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Setting up Cloudflare DDNS on Ubuntu for Dynamic Home IP</title>
+      <link>/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/</guid>
+      <description>&lt;hr&gt;&#xA;&lt;p&gt;title: Setting up Cloudflare DDNS on Ubuntu using cloudflare-ddns-updater&#xA;date: 2026-03-20&#xA;draft: false&#xA;tags:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;cloudflare&lt;/li&gt;&#xA;&lt;li&gt;ddns&lt;/li&gt;&#xA;&lt;li&gt;homelab&lt;/li&gt;&#xA;&lt;li&gt;ubuntu&lt;/li&gt;&#xA;&lt;li&gt;automation&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;My home network uses a dynamic public IP address, which changes periodically. This breaks remote access to my self-hosted services.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-solution-overview&#34;&gt;🛠️ Solution Overview&lt;/h2&gt;&#xA;&lt;p&gt;I used an open-source tool (cloudflare-ddns-updater) to automatically update my Cloudflare DNS records whenever my public IP changes.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-environment&#34;&gt;🔧 Environment&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Ubuntu Server (DDNS host)&lt;/li&gt;&#xA;&lt;li&gt;Cloudflare domain&lt;/li&gt;&#xA;&lt;li&gt;API Token with DNS edit permissions&lt;/li&gt;&#xA;&lt;li&gt;Git installed&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-step-1-create-cloudflare-api-token&#34;&gt;🚀 Step 1: Create Cloudflare API Token&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Log in to Cloudflare&lt;/li&gt;&#xA;&lt;li&gt;Go to &lt;strong&gt;My Profile → API Tokens&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;li&gt;Create a token with:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Zone → DNS → Edit&lt;/li&gt;&#xA;&lt;li&gt;Zone Resources → Specific Zone (your domain)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;Save the token securely.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Setting up Wazuh SIEM with SSH Brute Force Attack Detection and Mitigation</title>
+      <link>/posts/wazuh-siem-&#43;-ssh-attack-mitigation/</link>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/wazuh-siem-&#43;-ssh-attack-mitigation/</guid>
+      <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I wanted to simulate a real-world security environment in my homelab where I could detect and respond to SSH brute-force attacks and at the same time monitor my devices&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-solution-overview&#34;&gt;🛠️ Solution Overview&lt;/h2&gt;&#xA;&lt;p&gt;I deployed Wazuh as a SIEM solution and configured it to detect SSH login attempts and automatically block malicious IPs.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-environment&#34;&gt;🔧 Environment&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Ubuntu Server (Wazuh Manager)&lt;/li&gt;&#xA;&lt;li&gt;Linux target machine (with SSH enabled)&lt;/li&gt;&#xA;&lt;li&gt;Public exposure via port forwarding&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-step-1-install-wazuh&#34;&gt;🚀 Step 1: Install Wazuh&lt;/h2&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo bash ./wazuh-install.sh -a&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After installation, accessed dashboard:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>About</title>
       <link>/about/</link>
       <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
       <guid>/about/</guid>
       <description>&lt;p&gt;Hi, I&amp;rsquo;m &lt;strong&gt;Susan Khanal&lt;/strong&gt; — an IT and networking enthusiast building and breaking things in my homelab.&lt;/p&gt;&#xA;&lt;p&gt;This blog is where I document everything I learn: network setups, self-hosted services, Linux configs, firewalls, and anything else I experiment with.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-youll-find-here&#34;&gt;What you&amp;rsquo;ll find here&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Step-by-step homelab tutorials with real screenshots&lt;/li&gt;&#xA;&lt;li&gt;Networking deep-dives (Linux, VLANs, DNS, VPNs)&lt;/li&gt;&#xA;&lt;li&gt;Self-hosted app setups (ESXi, Docker)&lt;/li&gt;&#xA;&lt;li&gt;IT study notes and certification prep&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;my-setup&#34;&gt;My setup&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Hypervisor&lt;/strong&gt;: VMWare ESXi&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;DNS&lt;/strong&gt;: AdGuard Home&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;SIEM&lt;/strong&gt;: Wazuh&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;RMM&lt;/strong&gt;: MeshCentral&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Cloud&lt;/strong&gt;: Oracle Linux&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;connect&#34;&gt;Connect&lt;/h2&gt;&#xA;&lt;p&gt;Got questions or found an error? Reach out at &lt;a href=&#34;mailto:susan@susankhanal.com&#34;&gt;susan@susankhanal.com&lt;/a&gt; — I&amp;rsquo;m always learning.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Setup ESXi 8 in an OptiPlex</title>
-      <link>/posts/setup-esxi-8-in-an-optiplex/</link>
-      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>/posts/setup-esxi-8-in-an-optiplex/</guid>
-      <description>&lt;p&gt;Here in this blog, I&amp;rsquo;ve setup ESXi 8 on my simple optiplex host where I run my homelab.&#xA;The optiplex has 32 GB RAM, 1.5 TB disk and 12th Gen CPU which is decent to run couple of VMs and I only  run Linux vms majorly. See below:&#xA;!&lt;img src=&#34;/images/Pasted%20image%2020260315221630.png&#34; alt=&#34;Pasted image 20260315221630&#34;&gt;&#xA;!&lt;img src=&#34;/images/Pasted%20image%2020260315221704.png&#34; alt=&#34;Pasted image 20260315221704&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Let me know what you think about this.&lt;/p&gt;&#xA;&lt;p&gt;Ciao!!&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>My first post</title>
-      <link>/posts/my-first-blogpost/</link>
-      <pubDate>Wed, 06 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>/posts/my-first-blogpost/</guid>
-      <description>&lt;p&gt;Hello,&#xA;This is my First Post&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m attaching a photo&lt;/p&gt;&#xA;&lt;p&gt;!&lt;img src=&#34;/images/Pasted%20image%2020260315153635.png&#34; alt=&#34;Pasted image 20260315153635&#34;&gt;&#xA;git subtree split &amp;ndash;prefix public -b cloudflare-deploy&#xA;git push origin cloudflare-deploy:cloudflare &amp;ndash;force&#xA;git branch -D cloudflare-deploy&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>My second post</title>
-      <link>/posts/my-second-post/</link>
-      <pubDate>Wed, 06 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>/posts/my-second-post/</guid>
-      <description>&lt;p&gt;Hello, this is my second post&#xA;!&lt;img src=&#34;/images/Pasted%20image%2020260315153646.png&#34; alt=&#34;Pasted image 20260315153646&#34;&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>/posts/untitled/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/posts/untitled/</guid>
-      <description></description>
     </item>
   </channel>
 </rss>
