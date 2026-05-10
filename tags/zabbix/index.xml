@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vmware on Susan Khanal</title>
-    <link>/tags/vmware/</link>
-    <description>Recent content in Vmware on Susan Khanal</description>
+    <title>Zabbix on Susan Khanal</title>
+    <link>/tags/zabbix/</link>
+    <description>Recent content in Zabbix on Susan Khanal</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2026 Susan Khanal</copyright>
     <lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/tags/vmware/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/zabbix/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure</title>
       <link>/posts/zabbix-homelab-monitoring/</link>
       <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
       <guid>/posts/zabbix-homelab-monitoring/</guid>
       <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I wanted a centralized monitoring platform for my homelab that could monitor:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;On-premises VMware ESXi hosts&lt;/li&gt;&#xA;&lt;li&gt;Linux virtual machines&lt;/li&gt;&#xA;&lt;li&gt;Windows systems&lt;/li&gt;&#xA;&lt;li&gt;HPE iLO hardware management&lt;/li&gt;&#xA;&lt;li&gt;Cloud-hosted workloads&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The challenge was that most of my infrastructure lives behind NAT at home, and I did not want to expose services publicly or configure complex port forwarding.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-solution-overview&#34;&gt;🛠️ Solution Overview&lt;/h2&gt;&#xA;&lt;p&gt;I built a &lt;strong&gt;hybrid monitoring architecture&lt;/strong&gt; using:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Zabbix 7.0 LTS&lt;/strong&gt; hosted in Azure&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;ZeroTier&lt;/strong&gt; for secure private connectivity&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Zabbix Proxy&lt;/strong&gt; running locally in my homelab&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;VMware API monitoring&lt;/strong&gt; for ESXi&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;SNMP monitoring&lt;/strong&gt; for HPE iLO&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;This design allows cloud-hosted monitoring while keeping home infrastructure private.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</title>
-      <link>/posts/setup-esxi-8-in-an-optiplex/</link>
-      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>/posts/setup-esxi-8-in-an-optiplex/</guid>
-      <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a &lt;strong&gt;Pink Screen of Death (PSOD)&lt;/strong&gt; with errors like:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Fatal CPU mismatch on feature&lt;/li&gt;&#xA;&lt;li&gt;HW feature incompatibility detected&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;image-description&#34;&gt;This prevented ESXi from installing or booting successfully.&#xA;!&lt;img src=&#34;/images/Pasted%20image%2020260320194350.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/h2&gt;&#xA;&lt;h2 id=&#34;-root-cause&#34;&gt;🛠️ Root Cause&lt;/h2&gt;&#xA;&lt;p&gt;The issue is caused by modern Intel CPUs (12th Gen and newer) using a &lt;strong&gt;hybrid architecture&lt;/strong&gt; with:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Performance cores (P-cores)&lt;/li&gt;&#xA;&lt;li&gt;Efficiency cores (E-cores)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;ESXi expects uniform CPU cores, so it crashes when it detects different core types.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

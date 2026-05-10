@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure :: Susan Khanal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="🧩 Problem I wanted a centralized monitoring platform for my homelab that could monitor:
+On-premises VMware ESXi hosts Linux virtual machines Windows systems HPE iLO hardware management Cloud-hosted workloads The challenge was that most of my infrastructure lives behind NAT at home, and I did not want to expose services publicly or configure complex port forwarding.
+🛠️ Solution Overview I built a hybrid monitoring architecture using:
+Zabbix 7.0 LTS hosted in Azure ZeroTier for secure private connectivity Zabbix Proxy running locally in my homelab VMware API monitoring for ESXi SNMP monitoring for HPE iLO This design allows cloud-hosted monitoring while keeping home infrastructure private.
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/posts/zabbix-homelab-monitoring/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="/css/code.min.c4581949edab7810737609fc5568852bcd908945f14561e366dcd2300a370545.css">
+
+  
+  <link rel="stylesheet" href="/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure">
+<meta property="og:description" content="🧩 Problem I wanted a centralized monitoring platform for my homelab that could monitor:
+On-premises VMware ESXi hosts Linux virtual machines Windows systems HPE iLO hardware management Cloud-hosted workloads The challenge was that most of my infrastructure lives behind NAT at home, and I did not want to expose services publicly or configure complex port forwarding.
+🛠️ Solution Overview I built a hybrid monitoring architecture using:
+Zabbix 7.0 LTS hosted in Azure ZeroTier for secure private connectivity Zabbix Proxy running locally in my homelab VMware API monitoring for ESXi SNMP monitoring for HPE iLO This design allows cloud-hosted monitoring while keeping home infrastructure private.
+" />
+<meta property="og:url" content="/posts/zabbix-homelab-monitoring/" />
+<meta property="og:site_name" content="Susan Khanal" />
+
+  <meta property="og:image" content="/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-05-10 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    ~/susan $
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/posts" >Posts</a></li>
+        
+      
+        
+          <li><a href="/tags" >Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="/posts/zabbix-homelab-monitoring/">Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-05-10&nbsp;[Updated:  2026-05-10]</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="/tags/zabbix/">zabbix</a>&nbsp;
+      
+      #<a href="/tags/monitoring/">monitoring</a>&nbsp;
+      
+      #<a href="/tags/azure/">azure</a>&nbsp;
+      
+      #<a href="/tags/zerotier/">zerotier</a>&nbsp;
+      
+      #<a href="/tags/vmware/">vmware</a>&nbsp;
+      
+      #<a href="/tags/homelab/">homelab</a>&nbsp;
+      
+      #<a href="/tags/networking/">networking</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="-problem">🧩 Problem<a href="#-problem" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>I wanted a centralized monitoring platform for my homelab that could monitor:</p>
+<ul>
+<li>On-premises VMware ESXi hosts</li>
+<li>Linux virtual machines</li>
+<li>Windows systems</li>
+<li>HPE iLO hardware management</li>
+<li>Cloud-hosted workloads</li>
+</ul>
+<p>The challenge was that most of my infrastructure lives behind NAT at home, and I did not want to expose services publicly or configure complex port forwarding.</p>
+<hr>
+<h2 id="-solution-overview">🛠️ Solution Overview<a href="#-solution-overview" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>I built a <strong>hybrid monitoring architecture</strong> using:</p>
+<ul>
+<li><strong>Zabbix 7.0 LTS</strong> hosted in Azure</li>
+<li><strong>ZeroTier</strong> for secure private connectivity</li>
+<li><strong>Zabbix Proxy</strong> running locally in my homelab</li>
+<li><strong>VMware API monitoring</strong> for ESXi</li>
+<li><strong>SNMP monitoring</strong> for HPE iLO</li>
+</ul>
+<p>This design allows cloud-hosted monitoring while keeping home infrastructure private.</p>
+<hr>
+<h2 id="-architecture-overview">🏗️ Architecture Overview<a href="#-architecture-overview" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[Azure Zabbix Server]
+</span></span><span style="display:flex;"><span>            │
+</span></span><span style="display:flex;"><span>      (ZeroTier VPN)
+</span></span><span style="display:flex;"><span>            │
+</span></span><span style="display:flex;"><span> ┌──────────┴──────────┐
+</span></span><span style="display:flex;"><span> │                     │
+</span></span><span style="display:flex;"><span>[Remote Hosts]    [Zabbix Proxy]
+</span></span><span style="display:flex;"><span> Linux/Windows       (Homelab)
+</span></span><span style="display:flex;"><span>                         │
+</span></span><span style="display:flex;"><span>         ┌───────────────┼──────────────┐
+</span></span><span style="display:flex;"><span>         │               │              │
+</span></span><span style="display:flex;"><span>      [ESXi 01]      [ESXi 02]      [HPE iLO]
+</span></span><span style="display:flex;"><span>      VMware API     VMware API        SNMP
+</span></span></code></pre></div><h3 id="why-this-design">Why This Design?<a href="#why-this-design" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Instead of exposing home infrastructure to the internet:</p>
+<ul>
+<li>Remote hosts connect directly over ZeroTier</li>
+<li>LAN-only systems are monitored through a local Zabbix Proxy</li>
+<li>The proxy forwards monitoring data securely to Azure</li>
+</ul>
+<p>This gives me:</p>
+<p>✅ Centralized monitoring<br>
+✅ No inbound home firewall exposure<br>
+✅ Better scalability for future labs or remote sites</p>
+<hr>
+<h2 id="-environment">🔧 Environment<a href="#-environment" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="cloud-environment-azure">Cloud Environment (Azure)<a href="#cloud-environment-azure" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<table>
+  <thead>
+      <tr>
+          <th>Component</th>
+          <th>Details</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>VM Type</td>
+          <td>Standard B2ats v2</td>
+      </tr>
+      <tr>
+          <td>OS</td>
+          <td>Ubuntu Server 24.04 LTS</td>
+      </tr>
+      <tr>
+          <td>Monitoring Platform</td>
+          <td>Zabbix 7.0.25 LTS</td>
+      </tr>
+      <tr>
+          <td>Database</td>
+          <td>MariaDB 10.11</td>
+      </tr>
+      <tr>
+          <td>Web Server</td>
+          <td>Apache2</td>
+      </tr>
+      <tr>
+          <td>SSL</td>
+          <td>Let&rsquo;s Encrypt</td>
+      </tr>
+      <tr>
+          <td>DNS</td>
+          <td>Cloudflare</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="homelab-environment">Homelab Environment<a href="#homelab-environment" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<table>
+  <thead>
+      <tr>
+          <th>Device</th>
+          <th>Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Dell OptiPlex</td>
+          <td>ESXi Hypervisor</td>
+      </tr>
+      <tr>
+          <td>HP MicroServer Gen8</td>
+          <td>ESXi Hypervisor</td>
+      </tr>
+      <tr>
+          <td>HPE iLO 4</td>
+          <td>Hardware Monitoring</td>
+      </tr>
+      <tr>
+          <td>Ubuntu VM</td>
+          <td>Zabbix Proxy</td>
+      </tr>
+      <tr>
+          <td>ZeroTier</td>
+          <td>Overlay Networking</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-part-1-deploying-zabbix-server-in-azure">🚀 Part 1: Deploying Zabbix Server in Azure<a href="#-part-1-deploying-zabbix-server-in-azure" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="step-1-create-the-azure-vm">Step 1: Create the Azure VM<a href="#step-1-create-the-azure-vm" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Using my Azure for Students subscription, I created:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>VM Size: Standard_B2ats_v2
+</span></span><span style="display:flex;"><span>OS: Ubuntu Server 24.04 LTS
+</span></span><span style="display:flex;"><span>Region: Australia East
+</span></span><span style="display:flex;"><span>Authentication: SSH Key
+</span></span></code></pre></div><p>I intentionally selected a smaller VM to reduce resource usage.
+!<img src="/images/Pasted%20image%2020260510184723.png" alt="Image Description"></p>
+<hr>
+<h3 id="step-2-add-swap-memory">Step 2: Add Swap Memory<a href="#step-2-add-swap-memory" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Since the VM only had <strong>1 GB RAM</strong>, I added a <strong>2 GB swapfile</strong> to avoid memory pressure during MariaDB and Zabbix operations.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo fallocate -l 2G /swapfile
+</span></span><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">600</span> /swapfile
+</span></span><span style="display:flex;"><span>sudo mkswap /swapfile
+</span></span><span style="display:flex;"><span>sudo swapon /swapfile
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;/swapfile none swap sw 0 0&#39;</span> | sudo tee -a /etc/fstab
+</span></span></code></pre></div><p>This significantly improved stability.</p>
+<hr>
+<h3 id="step-3-install-zerotier">Step 3: Install ZeroTier<a href="#step-3-install-zerotier" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>To securely connect my home lab to Azure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -s https://install.zerotier.com | sudo bash
+</span></span><span style="display:flex;"><span>sudo zerotier-cli join YOUR_NETWORK_ID
+</span></span></code></pre></div><p>After approval in the ZeroTier portal, the VM received a private overlay IP.</p>
+<p>This became the primary communication path between my monitoring server and remote systems.</p>
+<hr>
+<h3 id="step-4-install-zabbix-70-lts">Step 4: Install Zabbix 7.0 LTS<a href="#step-4-install-zabbix-70-lts" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Installed required packages:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.0+ubuntu24.04_all.deb
+</span></span><span style="display:flex;"><span>sudo dpkg -i zabbix-release_latest_7.0+ubuntu24.04_all.deb
+</span></span><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo apt install -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>zabbix-server-mysql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>zabbix-frontend-php <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>zabbix-apache-conf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>zabbix-agent2 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>zabbix-sql-scripts
+</span></span></code></pre></div><hr>
+<h3 id="step-5-configure-mariadb">Step 5: Configure MariaDB<a href="#step-5-configure-mariadb" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Created the database:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mysql -u root
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">DATABASE</span> zabbix CHARACTER <span style="color:#66d9ef">SET</span> utf8mb4 <span style="color:#66d9ef">COLLATE</span> utf8mb4_bin;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">USER</span> <span style="color:#e6db74">&#39;zabbix&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;localhost&#39;</span> IDENTIFIED <span style="color:#66d9ef">BY</span> <span style="color:#e6db74">&#39;StrongPassword&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GRANT</span> <span style="color:#66d9ef">ALL</span> <span style="color:#66d9ef">PRIVILEGES</span> <span style="color:#66d9ef">ON</span> zabbix.<span style="color:#f92672">*</span> <span style="color:#66d9ef">TO</span> <span style="color:#e6db74">&#39;zabbix&#39;</span><span style="color:#f92672">@</span><span style="color:#e6db74">&#39;localhost&#39;</span>;
+</span></span><span style="display:flex;"><span>FLUSH <span style="color:#66d9ef">PRIVILEGES</span>;
+</span></span></code></pre></div><p>Imported schema:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>mysql -uzabbix -p zabbix
+</span></span></code></pre></div><hr>
+<h3 id="step-6-configure-ssl">Step 6: Configure SSL<a href="#step-6-configure-ssl" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>To securely expose the dashboard:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install certbot python3-certbot-apache -y
+</span></span><span style="display:flex;"><span>sudo certbot --apache
+</span></span></code></pre></div><p>Final dashboard URL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>https://your.domain.com/zabbix
+</span></span></code></pre></div><h2 id="image-description">!<img src="/images/Pasted%20image%2020260510185041.png" alt="Image Description"><a href="#image-description" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h2 id="-part-2-monitoring-remote-hosts-with-zerotier">📡 Part 2: Monitoring Remote Hosts with ZeroTier<a href="#-part-2-monitoring-remote-hosts-with-zerotier" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>For systems outside my LAN:</p>
+<ul>
+<li>Windows machines</li>
+<li>Linux VMs</li>
+<li>Wazuh server</li>
+</ul>
+<p>I installed:</p>
+<ul>
+<li>ZeroTier agent</li>
+<li>Zabbix Agent 2</li>
+</ul>
+<p>Example Linux installation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install zabbix-agent2 -y
+</span></span></code></pre></div><p>Updated:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Server=YOUR-ZABBIX-ZEROTIER-IP
+</span></span><span style="display:flex;"><span>ServerActive=YOUR-ZABBIX-ZEROTIER-IP
+</span></span></code></pre></div><p>This allowed agents to communicate securely without public exposure.</p>
+<hr>
+<h2 id="-part-3-deploying-a-local-zabbix-proxy">🔁 Part 3: Deploying a Local Zabbix Proxy<a href="#-part-3-deploying-a-local-zabbix-proxy" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="why-use-a-proxy">Why Use a Proxy?<a href="#why-use-a-proxy" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Some systems in my homelab:</p>
+<ul>
+<li>ESXi hypervisors</li>
+<li>HPE iLO</li>
+<li>Internal VMs</li>
+</ul>
+<p>should remain LAN-only.</p>
+<p>Instead of installing ZeroTier everywhere, I deployed a <strong>Zabbix Proxy VM</strong> inside ESXi.</p>
+<p>The proxy:</p>
+<ol>
+<li>Collects monitoring data locally</li>
+<li>Talks to ESXi APIs</li>
+<li>Queries SNMP devices</li>
+<li>Sends everything securely to Azure</li>
+</ol>
+<hr>
+<h3 id="proxy-configuration">Proxy Configuration<a href="#proxy-configuration" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Installed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>zabbix-proxy-sqlite3 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>zabbix-agent2 -y
+</span></span></code></pre></div><p>Updated:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/zabbix/zabbix_proxy.conf
+</span></span></code></pre></div><p>Configured:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Server=YOUR-ZABBIX-ZEROTIER-IP
+</span></span><span style="display:flex;"><span>Hostname=zabbix-proxy-homelab
+</span></span><span style="display:flex;"><span>ProxyMode=0
+</span></span><span style="display:flex;"><span>StartVMwareCollectors=2
+</span></span></code></pre></div><hr>
+<h2 id="-part-4-monitoring-vmware-esxi">🖥️ Part 4: Monitoring VMware ESXi<a href="#-part-4-monitoring-vmware-esxi" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Instead of agents, I used the <strong>VMware API</strong>.</p>
+<p>Configured host macros:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>{$VMWARE.URL}
+</span></span><span style="display:flex;"><span>{$VMWARE.USERNAME}
+</span></span><span style="display:flex;"><span>{$VMWARE.PASSWORD}
+</span></span></code></pre></div><p>Using templates:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>VMware
+</span></span><span style="display:flex;"><span>VMware Hypervisor
+</span></span></code></pre></div><p>This automatically discovered:</p>
+<ul>
+<li>Hypervisor health</li>
+<li>CPU &amp; memory usage</li>
+<li>Datastores</li>
+<li>Virtual machines</li>
+</ul>
+<hr>
+<h2 id="-part-5-monitoring-hpe-ilo-via-snmp">🔋 Part 5: Monitoring HPE iLO via SNMP<a href="#-part-5-monitoring-hpe-ilo-via-snmp" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Enabled SNMP in iLO:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Community: public
+</span></span><span style="display:flex;"><span>Port: 161
+</span></span><span style="display:flex;"><span>Version: SNMPv2
+</span></span></code></pre></div><p>Validated connectivity:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>snmpwalk -v2c -c public 192.168.1.4
+</span></span></code></pre></div><p>Applied template:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>HP iLO by SNMP
+</span></span></code></pre></div><p>This gave visibility into:</p>
+<ul>
+<li>Temperature</li>
+<li>Fans</li>
+<li>Hardware health</li>
+<li>Power supply status</li>
+<li>Firmware information</li>
+</ul>
+<hr>
+<h2 id="-challenges-faced">⚠️ Challenges Faced<a href="#-challenges-faced" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="1-mariadb-database-error">1. MariaDB Database Error<a href="#1-mariadb-database-error" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>After installation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Database error
+</span></span><span style="display:flex;"><span>No such file or directory
+</span></span></code></pre></div><p><strong>Cause:</strong> MariaDB service stopped.</p>
+<p><strong>Fix:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start mariadb
+</span></span></code></pre></div><hr>
+<h3 id="2-azure-vm-resource-constraints">2. Azure VM Resource Constraints<a href="#2-azure-vm-resource-constraints" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>1 GB RAM was insufficient during setup.</p>
+<p>Adding swap solved memory pressure.</p>
+<hr>
+<h3 id="3-esxi-monitoring-over-zerotier">3. ESXi Monitoring Over ZeroTier<a href="#3-esxi-monitoring-over-zerotier" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Installing ZeroTier directly on ESXi was not ideal.</p>
+<p>A local proxy provided a cleaner and more scalable architecture.</p>
+<hr>
+<h2 id="-final-result">📊 Final Result<a href="#-final-result" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>My monitoring stack now includes:</p>
+<p>✅ VMware ESXi monitoring<br>
+✅ Linux &amp; Windows monitoring<br>
+✅ HPE iLO hardware health<br>
+✅ Cloud + on-prem visibility<br>
+✅ Secure connectivity without port forwarding<br>
+✅ HTTPS dashboard via Cloudflare &amp; Let&rsquo;s Encrypt</p>
+<hr>
+<h2 id="-what-i-learned">🧠 What I Learned<a href="#-what-i-learned" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Hybrid monitoring architecture design</li>
+<li>Secure networking using ZeroTier</li>
+<li>VMware monitoring through APIs</li>
+<li>Zabbix Proxy deployment patterns</li>
+<li>Cloud-hosted monitoring best practices</li>
+</ul>
+<hr>
+<h2 id="-future-improvements">🚀 Future Improvements<a href="#-future-improvements" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>Telegram/email alerting</li>
+<li>Monitoring Docker containers</li>
+<li>Grafana dashboards</li>
+<li>HA Zabbix deployment</li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h">Other posts</span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+    
+    
+      <a href="/posts/adguard-setup-for-blocking-ads/" class="button inline next">
+         [<span class="button__text">AdGuard setup for blocking ads</span>] &gt;
+      </a>
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>© 2026 Susan Khanal</span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
