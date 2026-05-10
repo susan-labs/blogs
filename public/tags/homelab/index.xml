@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2026 Susan Khanal</copyright>
-    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure</title>
+      <link>/posts/zabbix-homelab-monitoring/</link>
+      <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/zabbix-homelab-monitoring/</guid>
+      <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I wanted a centralized monitoring platform for my homelab that could monitor:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;On-premises VMware ESXi hosts&lt;/li&gt;&#xA;&lt;li&gt;Linux virtual machines&lt;/li&gt;&#xA;&lt;li&gt;Windows systems&lt;/li&gt;&#xA;&lt;li&gt;HPE iLO hardware management&lt;/li&gt;&#xA;&lt;li&gt;Cloud-hosted workloads&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The challenge was that most of my infrastructure lives behind NAT at home, and I did not want to expose services publicly or configure complex port forwarding.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-solution-overview&#34;&gt;🛠️ Solution Overview&lt;/h2&gt;&#xA;&lt;p&gt;I built a &lt;strong&gt;hybrid monitoring architecture&lt;/strong&gt; using:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Zabbix 7.0 LTS&lt;/strong&gt; hosted in Azure&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;ZeroTier&lt;/strong&gt; for secure private connectivity&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Zabbix Proxy&lt;/strong&gt; running locally in my homelab&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;VMware API monitoring&lt;/strong&gt; for ESXi&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;SNMP monitoring&lt;/strong&gt; for HPE iLO&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;This design allows cloud-hosted monitoring while keeping home infrastructure private.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>AdGuard setup for blocking ads</title>
       <link>/posts/adguard-setup-for-blocking-ads/</link>

@@ -172,6 +172,68 @@
     
       <article class="post on-list">
         <h1 class="post-title">
+          <a href="/posts/zabbix-homelab-monitoring/">Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2026-05-10</time></div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/zabbix/">zabbix</a>&nbsp;
+            
+            #<a href="/tags/monitoring/">monitoring</a>&nbsp;
+            
+            #<a href="/tags/azure/">azure</a>&nbsp;
+            
+            #<a href="/tags/zerotier/">zerotier</a>&nbsp;
+            
+            #<a href="/tags/vmware/">vmware</a>&nbsp;
+            
+            #<a href="/tags/homelab/">homelab</a>&nbsp;
+            
+            #<a href="/tags/networking/">networking</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <h2 id="-problem">🧩 Problem</h2>
+<p>I wanted a centralized monitoring platform for my homelab that could monitor:</p>
+<ul>
+<li>On-premises VMware ESXi hosts</li>
+<li>Linux virtual machines</li>
+<li>Windows systems</li>
+<li>HPE iLO hardware management</li>
+<li>Cloud-hosted workloads</li>
+</ul>
+<p>The challenge was that most of my infrastructure lives behind NAT at home, and I did not want to expose services publicly or configure complex port forwarding.</p>
+<hr>
+<h2 id="-solution-overview">🛠️ Solution Overview</h2>
+<p>I built a <strong>hybrid monitoring architecture</strong> using:</p>
+<ul>
+<li><strong>Zabbix 7.0 LTS</strong> hosted in Azure</li>
+<li><strong>ZeroTier</strong> for secure private connectivity</li>
+<li><strong>Zabbix Proxy</strong> running locally in my homelab</li>
+<li><strong>VMware API monitoring</strong> for ESXi</li>
+<li><strong>SNMP monitoring</strong> for HPE iLO</li>
+</ul>
+<p>This design allows cloud-hosted monitoring while keeping home infrastructure private.</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/zabbix-homelab-monitoring/">[Read more →]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
           <a href="/posts/adguard-setup-for-blocking-ads/">AdGuard setup for blocking ads</a>
         </h1>
         <div class="post-meta"><time class="post-date">2026-03-20</time></div>
