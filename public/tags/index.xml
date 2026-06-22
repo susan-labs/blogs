@@ -17,6 +17,27 @@
       <description></description>
     </item>
     <item>
+      <title>Esxi</title>
+      <link>/tags/esxi/</link>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/esxi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Homelab</title>
+      <link>/tags/homelab/</link>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/homelab/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ovftool</title>
+      <link>/tags/ovftool/</link>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/ovftool/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Vcenter</title>
       <link>/tags/vcenter/</link>
       <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
@@ -45,17 +66,31 @@
       <description></description>
     </item>
     <item>
+      <title>Vtpm</title>
+      <link>/tags/vtpm/</link>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/vtpm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Windows11</title>
+      <link>/tags/windows11/</link>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/windows11/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Workstation</title>
+      <link>/tags/workstation/</link>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/workstation/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Azure</title>
       <link>/tags/azure/</link>
       <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
       <guid>/tags/azure/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Homelab</title>
-      <link>/tags/homelab/</link>
-      <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
-      <guid>/tags/homelab/</guid>
       <description></description>
     </item>
     <item>
@@ -119,13 +154,6 @@
       <link>/tags/dns/</link>
       <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
       <guid>/tags/dns/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Esxi</title>
-      <link>/tags/esxi/</link>
-      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>/tags/esxi/</guid>
       <description></description>
     </item>
     <item>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ovftool on Susan Khanal</title>
+    <link>/tags/ovftool/</link>
+    <description>Recent content in Ovftool on Susan Khanal</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© 2026 Susan Khanal</copyright>
+    <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/ovftool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Migrating VMs from VMware Workstation 25H2 to ESXi 8</title>
+      <link>/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/</link>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/</guid>
+      <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I had several Windows VMs running in VMware Workstation 25H2 on my Windows PC and wanted to migrate them across to my ESXi 8 host (&lt;code&gt;esx03&lt;/code&gt;) for centralized management under vCenter.&lt;/p&gt;&#xA;&lt;p&gt;Along the way I hit two blockers in sequence:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;&lt;code&gt;vmx-22&lt;/code&gt; hardware family not supported&lt;/strong&gt; during OVF import into ESXi 8&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;vTPM encryption requirement&lt;/strong&gt; — the VM failed to create because it had a virtual TPM but VM encryption wasn&amp;rsquo;t configured on the standalone host&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
