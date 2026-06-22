@@ -5,7 +5,19 @@
     <loc>/tags/clustering/</loc>
     <lastmod>2026-06-21T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tags/esxi/</loc>
+    <lastmod>2026-06-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/homelab/</loc>
+    <lastmod>2026-06-21T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/</loc>
+    <lastmod>2026-06-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/</loc>
+    <lastmod>2026-06-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/ovftool/</loc>
     <lastmod>2026-06-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/</loc>
@@ -29,13 +41,19 @@
     <loc>/tags/vmware/</loc>
     <lastmod>2026-06-21T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tags/vtpm/</loc>
+    <lastmod>2026-06-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/windows11/</loc>
+    <lastmod>2026-06-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/workstation/</loc>
+    <lastmod>2026-06-21T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/tags/azure/</loc>
     <lastmod>2026-05-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/zabbix-homelab-monitoring/</loc>
-    <lastmod>2026-05-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/homelab/</loc>
     <lastmod>2026-05-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/monitoring/</loc>
@@ -66,9 +84,6 @@
     <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/dns/</loc>
-    <lastmod>2026-03-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/esxi/</loc>
     <lastmod>2026-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/setup-esxi-8-in-an-optiplex/</loc>

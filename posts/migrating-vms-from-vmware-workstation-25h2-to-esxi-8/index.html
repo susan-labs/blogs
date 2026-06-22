@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Migrating VMs from VMware Workstation 25H2 to ESXi 8 :: Susan Khanal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="🧩 Problem I had several Windows VMs running in VMware Workstation 25H2 on my Windows PC and wanted to migrate them across to my ESXi 8 host (esx03) for centralized management under vCenter.
+Along the way I hit two blockers in sequence:
+vmx-22 hardware family not supported during OVF import into ESXi 8
+vTPM encryption requirement — the VM failed to create because it had a virtual TPM but VM encryption wasn&rsquo;t configured on the standalone host
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="/css/code.min.c4581949edab7810737609fc5568852bcd908945f14561e366dcd2300a370545.css">
+
+  
+  <link rel="stylesheet" href="/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Migrating VMs from VMware Workstation 25H2 to ESXi 8">
+<meta property="og:description" content="🧩 Problem I had several Windows VMs running in VMware Workstation 25H2 on my Windows PC and wanted to migrate them across to my ESXi 8 host (esx03) for centralized management under vCenter.
+Along the way I hit two blockers in sequence:
+vmx-22 hardware family not supported during OVF import into ESXi 8
+vTPM encryption requirement — the VM failed to create because it had a virtual TPM but VM encryption wasn&rsquo;t configured on the standalone host
+" />
+<meta property="og:url" content="/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/" />
+<meta property="og:site_name" content="Susan Khanal" />
+
+  <meta property="og:image" content="/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-06-21 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    ~/susan $
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/posts" >Posts</a></li>
+        
+      
+        
+          <li><a href="/tags" >Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/">Migrating VMs from VMware Workstation 25H2 to ESXi 8</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-06-21&nbsp;[Updated:  2026-06-21]</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="/tags/vmware/">vmware</a>&nbsp;
+      
+      #<a href="/tags/esxi/">esxi</a>&nbsp;
+      
+      #<a href="/tags/workstation/">workstation</a>&nbsp;
+      
+      #<a href="/tags/virtualization/">virtualization</a>&nbsp;
+      
+      #<a href="/tags/homelab/">homelab</a>&nbsp;
+      
+      #<a href="/tags/windows11/">windows11</a>&nbsp;
+      
+      #<a href="/tags/vtpm/">vtpm</a>&nbsp;
+      
+      #<a href="/tags/ovftool/">ovftool</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="-problem">🧩 Problem<a href="#-problem" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>I had several Windows VMs running in VMware Workstation 25H2 on my Windows PC and wanted to migrate them across to my ESXi 8 host (<code>esx03</code>) for centralized management under vCenter.</p>
+<p>Along the way I hit two blockers in sequence:</p>
+<ol>
+<li>
+<p><strong><code>vmx-22</code> hardware family not supported</strong> during OVF import into ESXi 8</p>
+</li>
+<li>
+<p><strong>vTPM encryption requirement</strong> — the VM failed to create because it had a virtual TPM but VM encryption wasn&rsquo;t configured on the standalone host</p>
+</li>
+</ol>
+<hr>
+<h2 id="-environment">🔧 Environment<a href="#-environment" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>
+<p>Source: VMware Workstation Pro 25H2 (Windows PC)</p>
+</li>
+<li>
+<p>Target: ESXi 8.0.3 (<code>esx03</code>) — standalone host, no shared storage</p>
+</li>
+<li>
+<p>VM: Windows 11, 8 GB RAM, 4 vCPU, 100 GB NVMe disk</p>
+</li>
+<li>
+<p>Both hosts on same LAN subnet</p>
+</li>
+<li>
+<p>Export tool: <code>ovftool.exe</code> (bundled with Workstation)</p>
+</li>
+</ul>
+<hr>
+<h2 id="-blocker-1-unsupported-hardware-family-vmx-22">🚧 Blocker 1: Unsupported Hardware Family <code>vmx-22</code><a href="#-blocker-1-unsupported-hardware-family-vmx-22" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="symptom">Symptom<a href="#symptom" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>During the OVF import wizard in the ESXi host client, the <strong>Ready to complete</strong> step failed with:</p>
+<pre tabindex="0"><code>
+Line 25: Unsupported hardware family &#39;vmx-22&#39;.
+
+There was an error creating the import specification from the OVF file.
+</code></pre><h3 id="root-cause">Root Cause<a href="#root-cause" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>VMware Workstation 25H2 defaults to the latest virtual hardware version — <code>vmx-22</code> — which the ESXi 8.x OVF import parser doesn&rsquo;t recognise. ESXi 8.0 understands up to <code>vmx-20</code> or <code>vmx-21</code> depending on patch level, but <code>vmx-22</code> was introduced in a newer Workstation release not yet mapped to an ESXi version.</p>
+<h3 id="fix-downgrade-hardware-compatibility-in-workstation">Fix: Downgrade Hardware Compatibility in Workstation<a href="#fix-downgrade-hardware-compatibility-in-workstation" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<ol>
+<li>
+<p>Shut down the VM in Workstation</p>
+</li>
+<li>
+<p>Right-click the VM → <strong>Manage</strong> → <strong>Change Hardware Compatibility&hellip;</strong></p>
+</li>
+<li>
+<p>Set the target to <strong>ESXi 7.0</strong> (ESXi 8.0 wasn&rsquo;t listed in Workstation 25H2 at the time)</p>
+</li>
+<li>
+<p>Complete the wizard — this downgrades the vmx version to <code>vmx-19</code>/<code>vmx-20</code></p>
+</li>
+</ol>
+<blockquote>
+<p>ESXi 8 is fully backward-compatible with older vmx versions, so targeting ESXi 7.0 in Workstation has no functional impact on the migrated VM.</p>
+</blockquote>
+<p>!<img src="/images/Pasted%20image%2020260622185554.png" alt="Image Description"></p>
+<hr>
+<h2 id="-blocker-2-vtpm-encryption-requirement">🚧 Blocker 2: vTPM Encryption Requirement<a href="#-blocker-2-vtpm-encryption-requirement" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h3 id="symptom-1">Symptom<a href="#symptom-1" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>After fixing the hardware version, the import completed the OVF deployment stage but the VM creation failed:</p>
+<pre tabindex="0"><code>
+State: Failed
+
+The virtual machine must be encrypted in order to add a Trusted Platform Module.
+</code></pre><h3 id="root-cause-1">Root Cause<a href="#root-cause-1" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>The Windows 11 VM had a <strong>virtual TPM (vTPM)</strong> device — required by Windows 11 at install time. On ESXi, any VM with a vTPM must have its VM home files encrypted, which requires a <strong>Key Provider</strong> configured in vCenter. On a standalone ESXi host (no vCenter), there&rsquo;s no native way to configure a Key Provider through the host client alone.</p>
+<p>VMware Workstation&rsquo;s vTPM doesn&rsquo;t have this encryption dependency, so the OVF carried the TPM device definition across but ESXi refused to create the VM without the matching encryption layer.</p>
+<h3 id="fix-remove-vtpm--disable-bitlocker-before-export">Fix: Remove vTPM + Disable BitLocker Before Export<a href="#fix-remove-vtpm--disable-bitlocker-before-export" class="hanchor" ariaLabel="Anchor">#</a> </h3>
+<p>Since the vTPM was only there to satisfy Windows 11&rsquo;s install-time requirement (not actively used for encryption), the cleanest fix was to remove it from Workstation before exporting.</p>
+<p><strong>Step 1: Check for BitLocker inside the VM</strong></p>
+<p>Before removing the TPM, confirm BitLocker isn&rsquo;t actively protecting any volumes — removing a vTPM while BitLocker is TPM-sealed will render the volume unrecoverable.</p>
+<p>Run inside the guest (elevated PowerShell or CMD):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>manage-bde -status
+</span></span></code></pre></div><p>If any drive shows <strong>Protection: On</strong>, decrypt it first:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>manage-bde -off C:
+</span></span></code></pre></div><p>Wait for decryption to complete before proceeding.</p>
+<p><strong>Step 2: Remove the vTPM in Workstation</strong></p>
+<ol>
+<li>
+<p>Shut down the VM</p>
+</li>
+<li>
+<p>Open <strong>VM Settings → Hardware</strong></p>
+</li>
+<li>
+<p>Select <strong>Trusted Platform Module</strong> → click <strong>Remove</strong></p>
+</li>
+<li>
+<p>Accept the warning (safe to proceed once BitLocker is confirmed off)</p>
+</li>
+</ol>
+<p><strong>Step 3: Re-export with ovftool</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd <span style="color:#e6db74">&#34;C:\Program Files (x86)\VMware\VMware Workstation\OVFTool&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.\ovftool.exe <span style="color:#e6db74">&#34;D:\domain-win11\domain-win11.vmx&#34;</span> <span style="color:#e6db74">&#34;G:\Export\VM01.ova&#34;</span>
+</span></span></code></pre></div><p>!<img src="/images/2026-06-22_18h48_52.png" alt="Image Description"></p>
+<p>For a 100 GB disk, expect the export to take 10–25 minutes depending on actual data written.</p>
+<hr>
+<h2 id="-import-into-esxi-8">✅ Import into ESXi 8<a href="#-import-into-esxi-8" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>With the hardware version downgraded and vTPM removed, the OVF import completed cleanly:</p>
+<ol>
+<li>
+<p>Log into the ESXi host client: <code>https://&lt;esxi-ip&gt;/ui</code></p>
+</li>
+<li>
+<p><strong>Virtual Machines</strong> → <strong>Create/Register VM</strong></p>
+</li>
+<li>
+<p>Select <strong>Deploy a virtual machine from an OVF or OVA file</strong></p>
+</li>
+<li>
+<p>Upload <code>VM01.ova</code></p>
+</li>
+<li>
+<p>Select datastore and map the network adapter to the correct ESXi portgroup</p>
+</li>
+<li>
+<p>Deploy</p>
+</li>
+</ol>
+<h2 id="image-description">!<img src="/images/Pasted%20image%2020260622204049.png" alt="Image Description"><a href="#image-description" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h2 id="-post-migration-steps">🔧 Post-Migration Steps<a href="#-post-migration-steps" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>After first boot on ESXi:</p>
+<ul>
+<li>
+<p><strong>Update VMware Tools</strong> — ESXi will prompt for an upgrade; Workstation Tools and ESXi Tools are compatible but not identical</p>
+</li>
+<li>
+<p><strong>Fix network adapter</strong> — the VM came in with a bridged network reference that needed remapping to the correct ESXi VM Network portgroup; verify the IP is correct once booted</p>
+</li>
+<li>
+<p><strong>Re-enable BitLocker if needed</strong> — without a vTPM, BitLocker must use <strong>password-based unlock</strong> instead of TPM-based. To re-enable: <code>manage-bde -on C: -Password</code> or configure via Group Policy</p>
+</li>
+</ul>
+<hr>
+<h2 id="-quick-reference-vmx-version-compatibility">📋 Quick Reference: vmx Version Compatibility<a href="#-quick-reference-vmx-version-compatibility" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>| vmx version | VMware Platform |</p>
+<p>|&mdash;|&mdash;|</p>
+<p>| vmx-22 | Workstation 25H2 (newest) |</p>
+<p>| vmx-21 | ESXi 8.0 U2/U3 |</p>
+<p>| vmx-20 | ESXi 8.0 |</p>
+<p>| vmx-19 | ESXi 7.0 U2 |</p>
+<p>| vmx-18 | ESXi 7.0 |</p>
+<hr>
+<h2 id="-key-takeaways">🧠 Key Takeaways<a href="#-key-takeaways" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>
+<p><strong>VMware Workstation 25H2 defaults to vmx-22</strong>, which ESXi 8.x&rsquo;s OVF import parser doesn&rsquo;t yet support — always downgrade hardware compatibility before exporting</p>
+</li>
+<li>
+<p><strong>vTPM requires VM encryption on ESXi</strong> — on a standalone host without vCenter + Key Provider, vTPM VMs cannot be imported directly; removing the vTPM is the practical workaround</p>
+</li>
+<li>
+<p><strong>Always check BitLocker status before removing vTPM</strong> — decrypting first avoids data loss</p>
+</li>
+<li>
+<p><strong><code>ovftool</code> is more reliable than the Workstation GUI export</strong> — better error output and supports compression flags</p>
+</li>
+<li>
+<p>Targeting <strong>ESXi 7.0</strong> in Workstation&rsquo;s hardware compatibility wizard produces a vmx version that ESXi 8 happily accepts</p>
+</li>
+</ul>
+<hr>
+<h2 id="-next-steps">🚀 Next Steps<a href="#-next-steps" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>
+<p>Re-add vTPM to Windows 11 VMs via vCenter once a Native Key Provider is configured</p>
+</li>
+<li>
+<p>Re-enable BitLocker with TPM-based unlock once vTPM is restored</p>
+</li>
+<li>
+<p>Migrate remaining Workstation VMs (<code>kali-linux</code>, <code>ubuntu-spare</code>, <code>winserver-2016</code>, <code>VM02</code>) using the same process</p>
+</li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h">Other posts</span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+      <a href="/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/" class="button inline prev">
+        &lt; [<span class="button__text">Installing vCenter Server 8 (VCSA) and Clustering 3 ESXi Hosts</span>]
+      </a>
+    
+    
+      ::
+    
+    
+      <a href="/posts/zabbix-homelab-monitoring/" class="button inline next">
+         [<span class="button__text">Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure</span>] &gt;
+      </a>
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>© 2026 Susan Khanal</span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

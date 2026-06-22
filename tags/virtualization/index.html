@@ -231,6 +231,58 @@ address(es) in the system.
     
       <article class="post on-list">
         <h1 class="post-title">
+          <a href="/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/">Migrating VMs from VMware Workstation 25H2 to ESXi 8</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2026-06-21</time></div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/vmware/">vmware</a>&nbsp;
+            
+            #<a href="/tags/esxi/">esxi</a>&nbsp;
+            
+            #<a href="/tags/workstation/">workstation</a>&nbsp;
+            
+            #<a href="/tags/virtualization/">virtualization</a>&nbsp;
+            
+            #<a href="/tags/homelab/">homelab</a>&nbsp;
+            
+            #<a href="/tags/windows11/">windows11</a>&nbsp;
+            
+            #<a href="/tags/vtpm/">vtpm</a>&nbsp;
+            
+            #<a href="/tags/ovftool/">ovftool</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <h2 id="-problem">🧩 Problem</h2>
+<p>I had several Windows VMs running in VMware Workstation 25H2 on my Windows PC and wanted to migrate them across to my ESXi 8 host (<code>esx03</code>) for centralized management under vCenter.</p>
+<p>Along the way I hit two blockers in sequence:</p>
+<ol>
+<li>
+<p><strong><code>vmx-22</code> hardware family not supported</strong> during OVF import into ESXi 8</p>
+</li>
+<li>
+<p><strong>vTPM encryption requirement</strong> — the VM failed to create because it had a virtual TPM but VM encryption wasn&rsquo;t configured on the standalone host</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/">[Read more →]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
           <a href="/posts/setup-esxi-8-in-an-optiplex/">Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</a>
         </h1>
         <div class="post-meta"><time class="post-date">2026-03-20</time></div>

@@ -17,6 +17,13 @@
       <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I wanted to bring my 3 separate ESXi hosts (running on local storage, no shared storage/NAS) under centralized management by deploying vCenter Server Appliance (VCSA) 8.0.3, then clustering all 3 hosts together.&lt;/p&gt;&#xA;&lt;p&gt;Along the way, I hit a persistent firstboot failure that took significant troubleshooting to root-cause:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xD;&#xA;Error&#xD;&#xA;&#xD;&#xA;The supplied System Name &amp;lt;hostname&amp;gt; is not valid.&#xD;&#xA;&#xD;&#xA;  &#xD;&#xA;&#xD;&#xA;Resolution&#xD;&#xA;&#xD;&#xA;If the supplied system name is a FQDN, then make sure the DNS forward lookup&#xD;&#xA;&#xD;&#xA;results in at least one valid IP address in the system. If the supplied&#xD;&#xA;&#xD;&#xA;system name is an IP address, then it should be one of the valid IP&#xD;&#xA;&#xD;&#xA;address(es) in the system.&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This happened with &lt;strong&gt;both&lt;/strong&gt; &lt;code&gt;vcenter.local&lt;/code&gt; and &lt;code&gt;vcenter.lab&lt;/code&gt; as the FQDN, despite DNS appearing to be configured correctly.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Migrating VMs from VMware Workstation 25H2 to ESXi 8</title>
+      <link>/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/</link>
+      <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/migrating-vms-from-vmware-workstation-25h2-to-esxi-8/</guid>
+      <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I had several Windows VMs running in VMware Workstation 25H2 on my Windows PC and wanted to migrate them across to my ESXi 8 host (&lt;code&gt;esx03&lt;/code&gt;) for centralized management under vCenter.&lt;/p&gt;&#xA;&lt;p&gt;Along the way I hit two blockers in sequence:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;&lt;code&gt;vmx-22&lt;/code&gt; hardware family not supported&lt;/strong&gt; during OVF import into ESXi 8&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;vTPM encryption requirement&lt;/strong&gt; — the VM failed to create because it had a virtual TPM but VM encryption wasn&amp;rsquo;t configured on the standalone host&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure</title>
       <link>/posts/zabbix-homelab-monitoring/</link>
       <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
