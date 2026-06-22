@@ -9,17 +9,6 @@ tags:
   - homelab
   - ubuntu
 ---
----
-title: Setting up Cloudflare DDNS on Ubuntu using cloudflare-ddns-updater
-date: 2026-03-20
-draft: false
-tags:
-  - cloudflare
-  - ddns
-  - homelab
-  - ubuntu
-  - automation
----
 
 ## 🧩 Problem
 

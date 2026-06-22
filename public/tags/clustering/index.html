@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-    <title>Cloudflare :: Susan Khanal</title>
+    <title>Clustering :: Susan Khanal</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
 
   <meta name="robots" content="noodp" />
 
-<link rel="canonical" href="/tags/cloudflare/" />
+<link rel="canonical" href="/tags/clustering/" />
 
 
 
@@ -72,9 +72,9 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Cloudflare">
+<meta property="og:title" content="Clustering">
 <meta property="og:description" content="" />
-<meta property="og:url" content="/tags/cloudflare/" />
+<meta property="og:url" content="/tags/clustering/" />
 <meta property="og:site_name" content="Susan Khanal" />
 
   <meta property="og:image" content="/og-image.png">
@@ -86,7 +86,7 @@
 
 
 
-  <link href="/tags/cloudflare/index.xml" rel="alternate" type="application/rss+xml" title="Susan Khanal" />
+  <link href="/tags/clustering/index.xml" rel="alternate" type="application/rss+xml" title="Susan Khanal" />
 
 
 
@@ -166,28 +166,30 @@
 
   <div class="content">
     
-  <h1>Posts for: #Cloudflare</h1>
+  <h1>Posts for: #Clustering</h1>
   
   <div class="posts">
     
       <article class="post on-list">
         <h1 class="post-title">
-          <a href="/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/">Setting up Cloudflare DDNS on Ubuntu for Dynamic Home IP</a>
+          <a href="/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/">Installing vCenter Server 8 (VCSA) and Clustering 3 ESXi Hosts</a>
         </h1>
-        <div class="post-meta"><time class="post-date">2026-03-20</time></div>
+        <div class="post-meta"><time class="post-date">2026-06-21</time></div>
 
         
           <span class="post-tags">
             
-            #<a href="/tags/cloudflare/">cloudflare</a>&nbsp;
+            #<a href="/tags/vcenter/">vcenter</a>&nbsp;
             
-            #<a href="/tags/ddns/">ddns</a>&nbsp;
+            #<a href="/tags/vcsa/">vcsa</a>&nbsp;
             
-            #<a href="/tags/networking/">networking</a>&nbsp;
+            #<a href="/tags/vmware/">vmware</a>&nbsp;
             
-            #<a href="/tags/homelab/">homelab</a>&nbsp;
+            #<a href="/tags/vmware/">vmware</a>&nbsp;
             
-            #<a href="/tags/ubuntu/">ubuntu</a>&nbsp;
+            #<a href="/tags/virtualization/">virtualization</a>&nbsp;
+            
+            #<a href="/tags/clustering/">clustering</a>&nbsp;
             
           </span>
         
@@ -198,37 +200,31 @@
         <div class="post-content">
           
             <h2 id="-problem">🧩 Problem</h2>
-<p>My home network uses a dynamic public IP address, which changes periodically. This breaks remote access to my self-hosted services.</p>
-<hr>
-<h2 id="-solution-overview">🛠️ Solution Overview</h2>
-<p>I used an open-source tool (cloudflare-ddns-updater) to automatically update my Cloudflare DNS records whenever my public IP changes.</p>
-<hr>
-<h2 id="-environment">🔧 Environment</h2>
-<ul>
-<li>Ubuntu Server (DDNS host)</li>
-<li>Cloudflare domain</li>
-<li>API Token with DNS edit permissions</li>
-<li>Git installed</li>
-</ul>
-<hr>
-<h2 id="-step-1-create-cloudflare-api-token">🚀 Step 1: Create Cloudflare API Token</h2>
-<ol>
-<li>Log in to Cloudflare</li>
-<li>Go to <strong>My Profile → API Tokens</strong></li>
-<li>Create a token with:
-<ul>
-<li>Zone → DNS → Edit</li>
-<li>Zone Resources → Specific Zone (your domain)</li>
-</ul>
-</li>
-</ol>
-<p>Save the token securely.</p>
+<p>I wanted to bring my 3 separate ESXi hosts (running on local storage, no shared storage/NAS) under centralized management by deploying vCenter Server Appliance (VCSA) 8.0.3, then clustering all 3 hosts together.</p>
+<p>Along the way, I hit a persistent firstboot failure that took significant troubleshooting to root-cause:</p>
+<pre tabindex="0"><code>
+Error
+
+The supplied System Name &lt;hostname&gt; is not valid.
+
+  
+
+Resolution
+
+If the supplied system name is a FQDN, then make sure the DNS forward lookup
+
+results in at least one valid IP address in the system. If the supplied
+
+system name is an IP address, then it should be one of the valid IP
+
+address(es) in the system.
+</code></pre><p>This happened with <strong>both</strong> <code>vcenter.local</code> and <code>vcenter.lab</code> as the FQDN, despite DNS appearing to be configured correctly.</p>
           
         </div>
 
         
           <div>
-            <a class="read-more button inline" href="/posts/setting-up-cloudflare-ddns-on-ubuntu-for-dynamic-home-ip/">[Read more →]</a>
+            <a class="read-more button inline" href="/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/">[Read more →]</a>
           </div>
         
       </article>
