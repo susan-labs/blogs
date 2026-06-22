@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Installing vCenter Server 8 (VCSA) and Clustering 3 ESXi Hosts :: Susan Khanal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="🧩 Problem I wanted to bring my 3 separate ESXi hosts (running on local storage, no shared storage/NAS) under centralized management by deploying vCenter Server Appliance (VCSA) 8.0.3, then clustering all 3 hosts together.
+Along the way, I hit a persistent firstboot failure that took significant troubleshooting to root-cause:
+ErrorThe supplied System Name &lt;hostname&gt; is not valid.ResolutionIf the supplied system name is a FQDN, then make sure the DNS forward lookupresults in at least one valid IP address in the system. If the suppliedsystem name is an IP address, then it should be one of the valid IPaddress(es) in the system. This happened with both vcenter.local and vcenter.lab as the FQDN, despite DNS appearing to be configured correctly.
+" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="/css/code.min.c4581949edab7810737609fc5568852bcd908945f14561e366dcd2300a370545.css">
+
+  
+  <link rel="stylesheet" href="/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Installing vCenter Server 8 (VCSA) and Clustering 3 ESXi Hosts">
+<meta property="og:description" content="🧩 Problem I wanted to bring my 3 separate ESXi hosts (running on local storage, no shared storage/NAS) under centralized management by deploying vCenter Server Appliance (VCSA) 8.0.3, then clustering all 3 hosts together.
+Along the way, I hit a persistent firstboot failure that took significant troubleshooting to root-cause:
+ErrorThe supplied System Name &lt;hostname&gt; is not valid.ResolutionIf the supplied system name is a FQDN, then make sure the DNS forward lookupresults in at least one valid IP address in the system. If the suppliedsystem name is an IP address, then it should be one of the valid IPaddress(es) in the system. This happened with both vcenter.local and vcenter.lab as the FQDN, despite DNS appearing to be configured correctly.
+" />
+<meta property="og:url" content="/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/" />
+<meta property="og:site_name" content="Susan Khanal" />
+
+  <meta property="og:image" content="/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2026-06-21 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    ~/susan $
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about" >About</a></li>
+        
+      
+        
+          <li><a href="/posts" >Posts</a></li>
+        
+      
+        
+          <li><a href="/tags" >Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/">Installing vCenter Server 8 (VCSA) and Clustering 3 ESXi Hosts</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2026-06-21&nbsp;[Updated:  2026-06-21]</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="/tags/vcenter/">vcenter</a>&nbsp;
+      
+      #<a href="/tags/vcsa/">vcsa</a>&nbsp;
+      
+      #<a href="/tags/vmware/">vmware</a>&nbsp;
+      
+      #<a href="/tags/vmware/">vmware</a>&nbsp;
+      
+      #<a href="/tags/virtualization/">virtualization</a>&nbsp;
+      
+      #<a href="/tags/clustering/">clustering</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="-problem">🧩 Problem<a href="#-problem" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>I wanted to bring my 3 separate ESXi hosts (running on local storage, no shared storage/NAS) under centralized management by deploying vCenter Server Appliance (VCSA) 8.0.3, then clustering all 3 hosts together.</p>
+<p>Along the way, I hit a persistent firstboot failure that took significant troubleshooting to root-cause:</p>
+<pre tabindex="0"><code>
+Error
+
+The supplied System Name &lt;hostname&gt; is not valid.
+
+  
+
+Resolution
+
+If the supplied system name is a FQDN, then make sure the DNS forward lookup
+
+results in at least one valid IP address in the system. If the supplied
+
+system name is an IP address, then it should be one of the valid IP
+
+address(es) in the system.
+</code></pre><p>This happened with <strong>both</strong> <code>vcenter.local</code> and <code>vcenter.lab</code> as the FQDN, despite DNS appearing to be configured correctly.</p>
+<hr>
+<h2 id="-solution-overview">🛠️ Solution Overview<a href="#-solution-overview" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Deployed VCSA 8.0.3 using the <strong>IP address as the PNID</strong> (leaving the FQDN field blank during Stage 1), sidestepping a deep systemd-resolved hostname synthesis issue in Photon OS. After a successful deploy, clustered all 3 ESXi hosts under one vCenter, enabled DRS and HA, and set up remote access via Cloudflare Tunnel with Cloudflare Access authentication.</p>
+<hr>
+<h2 id="-environment">🔧 Environment<a href="#-environment" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>
+<p>3x ESXi 8.0.3 hosts on separate physical hardware (local storage only, no shared NAS/SAN)</p>
+</li>
+<li>
+<p><code>VMware-VCSA-all-8.0.3-24322831.iso</code> (full installer)</p>
+</li>
+<li>
+<p>AdGuard Home as local DNS resolver</p>
+</li>
+<li>
+<p>vSphere 8 Enterprise Plus licensing</p>
+</li>
+<li>
+<p>Windows management PC for running the VCSA installer UI</p>
+</li>
+</ul>
+<hr>
+<h2 id="-step-1-decide-hardware-placement-for-vcsa">🔍 Step 1: Decide Hardware Placement for VCSA<a href="#-step-1-decide-hardware-placement-for-vcsa" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>With 3 hosts of varying RAM (32GB / 16GB / 64GB), VCSA was deployed on the host with the most headroom (64GB RAM) to avoid resource contention with existing VMs.</p>
+<p>For a <strong>Tiny</strong> deployment (up to 10 hosts / 100 VMs):</p>
+<p>| Deployment Size | vCPU | RAM   | Inventory Size          |</p>
+<p>|&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;|&mdash;&mdash;|&mdash;&mdash;-|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-|</p>
+<p>| Tiny            | 2    | 14 GB | Up to 10 hosts / 100 VMs |</p>
+<p>For 3 hosts total, <strong>Tiny</strong> is the correct tier.</p>
+<hr>
+<h2 id="-step-2-dns-planning">🌐 Step 2: DNS Planning<a href="#-step-2-dns-planning" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Initial plan was to set up a DNS rewrite in AdGuard Home for the FQDN, pointing to a static IP for the VCSA appliance, plus a PTR record for reverse DNS.</p>
+<p><strong>Key lesson</strong>: AdGuard Home&rsquo;s DNS rewrites are forward-only — they don&rsquo;t auto-generate PTR records. For a single-vCenter homelab, missing reverse DNS is cosmetic (a warning during pre-checks) and not a hard blocker.</p>
+<hr>
+<h2 id="-step-3-deploy-vcsa--stage-1-ova-deployment">💿 Step 3: Deploy VCSA — Stage 1 (OVA Deployment)<a href="#-step-3-deploy-vcsa--stage-1-ova-deployment" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ol>
+<li>
+<p>Mounted <code>VMware-VCSA-all-8.0.3-24322831.iso</code> on a Windows management PC</p>
+</li>
+<li>
+<p>Ran <code>vcsa-ui-installer\win32\installer.exe</code> → <strong>Install</strong></p>
+</li>
+<li>
+<p>Pointed the deployment target at the chosen ESXi host directly</p>
+</li>
+<li>
+<p>Selected deployment size: <strong>Tiny</strong>, thin-provisioned disk</p>
+</li>
+<li>
+<p>Configured static networking (IP, gateway, DNS server)</p>
+</li>
+<li>
+<p><strong>Left the FQDN field blank</strong> — this makes the static IP the appliance&rsquo;s PNID</p>
+</li>
+</ol>
+<p>Stage 1 completed successfully and deployed the appliance VM.</p>
+<p>!<img src="/images/2026-06-20_20h55_17.png" alt="Image Description"></p>
+<hr>
+<h2 id="-step-4-stage-2-failure--root-cause-analysis">⚠️ Step 4: Stage 2 Failure — Root Cause Analysis<a href="#-step-4-stage-2-failure--root-cause-analysis" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Clicking <strong>Continue</strong> into Stage 2 triggers firstboot (~51 services). The very first script, <code>visl-support-firstboot.py</code>, failed after ~30 minutes with the PNID validation error.</p>
+<p>!<img src="/images/Pasted%20image%2020260622182252.png" alt="Image Description"></p>
+<p>SSH&rsquo;d into the appliance to dig into logs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ssh root@&lt;vcsa-ip&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>shell
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cat /var/log/firstboot/visl-support-firstboot.py_&lt;PID&gt;_stderr.log
+</span></span></code></pre></div><p>This revealed <code>Forward lookup of &lt;FQDN&gt; returned empty result</code>. Testing DNS directly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nslookup &lt;FQDN&gt;                   <span style="color:#75715e"># fails — queries 127.0.0.1 first</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nslookup &lt;FQDN&gt; &lt;dns-server-ip&gt;   <span style="color:#75715e"># succeeds</span>
+</span></span></code></pre></div><p>Checking the actual resolution path:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>resolvectl query &lt;FQDN&gt;
+</span></span></code></pre></div><p>The query resolved to <code>127.0.0.1</code> / <code>::1</code> in <strong>microseconds</strong> — far too fast to be a real network round-trip. That pointed to a <strong>local synthetic answer</strong>.</p>
+<p>Checking the NSS resolution order:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cat /etc/nsswitch.conf
+</span></span></code></pre></div><pre tabindex="0"><code>
+hosts: files resolve dns
+</code></pre><p><strong>Root cause</strong>: <code>resolve</code> (systemd-resolved&rsquo;s NSS module) synthesizes a loopback answer for the system&rsquo;s own hostname and sits <em>before</em> <code>dns</code> in the chain — so real upstream DNS (AdGuard Home) was never consulted for the appliance&rsquo;s own FQDN. The firstboot script&rsquo;s forward-lookup validation hit the loopback answer and failed every time.</p>
+<hr>
+<h2 id="-step-5-the-fix-and-the-workaround-that-actually-worked">✅ Step 5: The Fix (and the Workaround That Actually Worked)<a href="#-step-5-the-fix-and-the-workaround-that-actually-worked" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p><strong>Attempted fix</strong> — removing <code>resolve</code> from the NSS chain:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp /etc/nsswitch.conf /etc/nsswitch.conf.bak
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#e6db74">&#39;s/hosts: files resolve dns/hosts: files dns/&#39;</span> /etc/nsswitch.conf
+</span></span></code></pre></div><p>Verified with <code>getent</code> (which follows the same NSS chain as Python&rsquo;s <code>getaddrinfo()</code>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>getent hosts &lt;FQDN&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Correctly returned the real LAN IP</span>
+</span></span></code></pre></div><p><strong>Caveat</strong>: certain firstboot scripts can regenerate <code>/etc/resolv.conf</code> mid-run, reverting parts of the fix. After multiple failed attempts, the most reliable solution was simply <strong>leaving the FQDN field blank during Stage 1</strong> and using the static IP as the PNID — no DNS validation involved at all.</p>
+<hr>
+<h2 id="-step-6-create-datacenter-and-cluster">🏗️ Step 6: Create Datacenter and Cluster<a href="#-step-6-create-datacenter-and-cluster" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ol>
+<li>
+<p>Right-click vCenter → <strong>New Datacenter</strong></p>
+</li>
+<li>
+<p>Right-click Datacenter → <strong>New Cluster</strong></p>
+</li>
+</ol>
+<p>   - <strong>vSphere DRS</strong>: left off initially (enabled after hosts added)</p>
+<p>   - <strong>vSphere HA</strong>: left off initially (same reason)</p>
+<p>   - <strong>vSAN</strong>: off (no shared storage in this environment)</p>
+<p>   - <strong>vLCM image-based management</strong>: left unchecked (adds complexity not needed for first pass across 3 different hardware models)</p>
+<hr>
+<h2 id="-step-7-add-esxi-hosts-to-the-cluster">➕ Step 7: Add ESXi Hosts to the Cluster<a href="#-step-7-add-esxi-hosts-to-the-cluster" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>For each of the 3 hosts:</p>
+<ol>
+<li>
+<p>Right-click Cluster → <strong>Add Hosts</strong></p>
+</li>
+<li>
+<p>Enter host IP and root credentials</p>
+</li>
+<li>
+<p>Review host summary (existing VMs, networks, datastores)</p>
+</li>
+<li>
+<p>Assign license</p>
+</li>
+<li>
+<p><strong>Finish</strong></p>
+</li>
+</ol>
+<p>All powered-on VMs continued running uninterrupted throughout — adding a host to a cluster doesn&rsquo;t touch existing workloads.</p>
+<p>!<img src="/images/Pasted%20image%2020260622182602.png" alt="Image Description"></p>
+<hr>
+<h2 id="-step-8-licensing">🔑 Step 8: Licensing<a href="#-step-8-licensing" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ol>
+<li>
+<p><strong>Administration → Licensing → Licenses</strong> → <strong>Add</strong> → enter license key(s)</p>
+</li>
+<li>
+<p><strong>Assets → vCenter Server systems</strong> → assign license to the vCenter instance</p>
+</li>
+<li>
+<p><strong>Assets → Hosts</strong> → select all 3 hosts → <strong>Assign License</strong> → vSphere 8 Enterprise Plus</p>
+</li>
+</ol>
+<hr>
+<h2 id="-step-9-enable-drs-and-ha">🔄 Step 9: Enable DRS and HA<a href="#-step-9-enable-drs-and-ha" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Once all hosts were licensed and healthy:</p>
+<ol>
+<li>
+<p><strong>Cluster → Configure → Services → vSphere DRS → Edit</strong> → toggle <strong>On</strong> (Fully Automated)</p>
+</li>
+<li>
+<p><strong>Cluster → Configure → Services → vSphere Availability → Edit</strong> → toggle <strong>On</strong></p>
+</li>
+</ol>
+<p><strong>Note on local-storage-only environments</strong>: HA&rsquo;s ability to restart VMs on a different host is limited — a VM&rsquo;s disk only exists on its original host&rsquo;s local datastore, so if that host goes down, HA can&rsquo;t relocate it. vMotion between hosts is still possible with Enterprise Plus licensing but requires copying the full VM disk over the network.</p>
+<hr>
+<h2 id="-step-10-remote-access-via-cloudflare-tunnel">🌐 Step 10: Remote Access via Cloudflare Tunnel<a href="#-step-10-remote-access-via-cloudflare-tunnel" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Set up remote access using <strong>Cloudflare Tunnel</strong> with <strong>Cloudflare Access</strong> authentication in front of vCenter&rsquo;s own SSO login.</p>
+<p>Install and configure <code>cloudflared</code> on a small VM on the same LAN as vCenter:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>curl -L https://pkg.cloudflare.com/cloudflare-main.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-main.gpg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main&#39;</span> | sudo tee /etc/apt/sources.list.d/cloudflared.list
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo apt-get update <span style="color:#f92672">&amp;&amp;</span> sudo apt-get install cloudflared
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cloudflared tunnel login
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cloudflared tunnel create vcenter-tunnel
+</span></span></code></pre></div><p><code>~/.cloudflared/config.yml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">tunnel</span>: <span style="color:#ae81ff">vcenter-tunnel</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">credentials-file</span>: <span style="color:#ae81ff">/root/.cloudflared/&lt;tunnel-id&gt;.json</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">ingress</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">hostname</span>: <span style="color:#ae81ff">&lt;your-public-fqdn&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">service</span>: <span style="color:#ae81ff">https://&lt;vcenter-ip&gt;:443</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">originRequest</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">noTLSVerify</span>: <span style="color:#66d9ef">true</span>   <span style="color:#75715e"># cert is issued for the IP, not the tunnel hostname</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">service</span>: <span style="color:#ae81ff">http_status:404</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cloudflared tunnel route dns vcenter-tunnel &lt;your-public-fqdn&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cloudflared tunnel run vcenter-tunnel
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># once confirmed working:</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo cloudflared service install
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo systemctl enable --now cloudflared
+</span></span></code></pre></div><p>In the Cloudflare <strong>Zero Trust dashboard</strong>, add an <strong>Access</strong> application in front of the tunnel hostname with a policy restricted to specific identities — this adds an authentication challenge before anyone reaches vCenter&rsquo;s own SSO prompt.</p>
+<hr>
+<h2 id="-step-11-fix-sso-rejected-hostname">🔒 Step 11: Fix SSO Rejected Hostname<a href="#-step-11-fix-sso-rejected-hostname" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<p>Accessing vCenter via the tunnel hostname returned:</p>
+<pre tabindex="0"><code>
+[400] An error occurred while sending an authentication request to the vCenter Single
+
+Sign-On server - the service provider validation failed.
+</code></pre><p>vCenter&rsquo;s SSO only trusts the hostname matching its configured PNID by default. Any additional hostname (tunnel, reverse proxy, load balancer) must be explicitly whitelisted.</p>
+<p>SSH into vCenter and edit the alias whitelist:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ssh root@&lt;vcenter-ip&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>shell
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>service-control --stop vsphere-ui
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd /etc/vmware/vsphere-ui
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cp webclient.properties webclient.properties.bak
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vi webclient.properties
+</span></span></code></pre></div><p>Uncomment and set:</p>
+<pre tabindex="0"><code>
+sso.serviceprovider.alias.whitelist=&lt;your-public-fqdn&gt;
+</code></pre><p>Restart the service:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>service-control --start vsphere-ui
+</span></span></code></pre></div><p>After this, logging in via the tunnel hostname succeeded.</p>
+<hr>
+<h2 id="-result">📊 Result<a href="#-result" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>
+<p>vCenter Server 8.0.3 deployed and stable</p>
+</li>
+<li>
+<p>All 3 ESXi hosts centrally managed under one cluster</p>
+</li>
+<li>
+<p>DRS and HA enabled (with local-storage caveats noted above)</p>
+</li>
+<li>
+<p>Existing VMs across all hosts untouched and running throughout</p>
+</li>
+<li>
+<p>Remote access available via Cloudflare Tunnel, gated behind Cloudflare Access and vCenter SSO</p>
+</li>
+</ul>
+<h2 id="image-description">!<img src="/images/Pasted%20image%2020260622182514.png" alt="Image Description"><a href="#image-description" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<h2 id="-challenges-faced">⚠️ Challenges Faced<a href="#-challenges-faced" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>
+<p>Misleading error message that looked like a simple DNS typo but was actually a deep OS-level NSS/systemd-resolved behavior</p>
+</li>
+<li>
+<p>Two full ~30-minute failed deployment cycles before root-causing the issue</p>
+</li>
+<li>
+<p>Discovering that <code>/etc/hosts</code>&rsquo;s loopback entry for the appliance&rsquo;s own hostname is intended VMware behavior — the real issue was one layer deeper, in NSS resolution order</p>
+</li>
+<li>
+<p>Firstboot failures aren&rsquo;t designed to be resumed or patched in place — redeployment was ultimately necessary</p>
+</li>
+<li>
+<p>SSO rejecting the Cloudflare Tunnel hostname until explicitly whitelisted</p>
+</li>
+</ul>
+<hr>
+<h2 id="-what-i-learned">🧠 What I Learned<a href="#-what-i-learned" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>
+<p><code>resolve</code> in <code>/etc/nsswitch.conf</code>&rsquo;s <code>hosts:</code> line synthesizes loopback answers for the system&rsquo;s own hostname, silently defeating DNS-based validation checks</p>
+</li>
+<li>
+<p><code>/etc/resolv.conf</code> on Photon OS is a dynamically generated symlink — manual edits don&rsquo;t survive service restarts</p>
+</li>
+<li>
+<p>For a single-vCenter homelab, deploying with an <strong>IP-based PNID</strong> (leaving FQDN blank) is a fully supported shortcut that avoids the entire DNS synthesis problem</p>
+</li>
+<li>
+<p>AdGuard Home&rsquo;s DNS rewrites are forward-only — proper reverse DNS requires a full authoritative DNS server</p>
+</li>
+<li>
+<p>vCenter SSO only trusts its configured PNID hostname by default — any additional access hostname must be whitelisted in <code>webclient.properties</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="-future-improvements">🚀 Future Improvements<a href="#-future-improvements" class="hanchor" ariaLabel="Anchor">#</a> </h2>
+<ul>
+<li>
+<p>Revisit FQDN-based PNID now that the root cause is understood</p>
+</li>
+<li>
+<p>Add shared storage (NFS box) to unlock real HA failover and faster vMotion</p>
+</li>
+<li>
+<p>Explore vLCM image-based lifecycle management once the cluster is stable</p>
+</li>
+<li>
+<p>Set up proper reverse DNS via a full authoritative DNS server for a clean forward+reverse setup</p>
+</li>
+<li>
+<p>Tighten Cloudflare Access policy further (e.g. add a second identity factor) given vCenter&rsquo;s sensitivity as a management plane</p>
+</li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h">Other posts</span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    
+    
+    
+      <a href="/posts/zabbix-homelab-monitoring/" class="button inline next">
+         [<span class="button__text">Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure</span>] &gt;
+      </a>
+    
+  </div>
+</div>
+
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>© 2026 Susan Khanal</span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

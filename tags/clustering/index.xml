@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Virtualization on Susan Khanal</title>
-    <link>/tags/virtualization/</link>
-    <description>Recent content in Virtualization on Susan Khanal</description>
+    <title>Clustering on Susan Khanal</title>
+    <link>/tags/clustering/</link>
+    <description>Recent content in Clustering on Susan Khanal</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2026 Susan Khanal</copyright>
     <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/tags/clustering/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installing vCenter Server 8 (VCSA) and Clustering 3 ESXi Hosts</title>
       <link>/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/</link>
       <pubDate>Sun, 21 Jun 2026 00:00:00 +0000</pubDate>
       <guid>/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/</guid>
       <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I wanted to bring my 3 separate ESXi hosts (running on local storage, no shared storage/NAS) under centralized management by deploying vCenter Server Appliance (VCSA) 8.0.3, then clustering all 3 hosts together.&lt;/p&gt;&#xA;&lt;p&gt;Along the way, I hit a persistent firstboot failure that took significant troubleshooting to root-cause:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&#xD;&#xA;Error&#xD;&#xA;&#xD;&#xA;The supplied System Name &amp;lt;hostname&amp;gt; is not valid.&#xD;&#xA;&#xD;&#xA;  &#xD;&#xA;&#xD;&#xA;Resolution&#xD;&#xA;&#xD;&#xA;If the supplied system name is a FQDN, then make sure the DNS forward lookup&#xD;&#xA;&#xD;&#xA;results in at least one valid IP address in the system. If the supplied&#xD;&#xA;&#xD;&#xA;system name is an IP address, then it should be one of the valid IP&#xD;&#xA;&#xD;&#xA;address(es) in the system.&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This happened with &lt;strong&gt;both&lt;/strong&gt; &lt;code&gt;vcenter.local&lt;/code&gt; and &lt;code&gt;vcenter.lab&lt;/code&gt; as the FQDN, despite DNS appearing to be configured correctly.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Installing ESXi 8 on Dell OptiPlex (Fixing Pink Screen of Death - CPU Mismatch)</title>
-      <link>/posts/setup-esxi-8-in-an-optiplex/</link>
-      <pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>/posts/setup-esxi-8-in-an-optiplex/</guid>
-      <description>&lt;h2 id=&#34;-problem&#34;&gt;🧩 Problem&lt;/h2&gt;&#xA;&lt;p&gt;I attempted to install ESXi 8 on my Dell OptiPlex homelab machine, but during boot, I encountered a &lt;strong&gt;Pink Screen of Death (PSOD)&lt;/strong&gt; with errors like:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Fatal CPU mismatch on feature&lt;/li&gt;&#xA;&lt;li&gt;HW feature incompatibility detected&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;image-description&#34;&gt;This prevented ESXi from installing or booting successfully.&#xA;!&lt;img src=&#34;/images/Pasted%20image%2020260320194350.png&#34; alt=&#34;Image Description&#34;&gt;&lt;/h2&gt;&#xA;&lt;h2 id=&#34;-root-cause&#34;&gt;🛠️ Root Cause&lt;/h2&gt;&#xA;&lt;p&gt;The issue is caused by modern Intel CPUs (12th Gen and newer) using a &lt;strong&gt;hybrid architecture&lt;/strong&gt; with:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Performance cores (P-cores)&lt;/li&gt;&#xA;&lt;li&gt;Efficiency cores (E-cores)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;ESXi expects uniform CPU cores, so it crashes when it detects different core types.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

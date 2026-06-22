@@ -171,6 +171,65 @@
     
       <article class="post on-list">
         <h2 class="post-title">
+          <a href="/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/">Installing vCenter Server 8 (VCSA) and Clustering 3 ESXi Hosts</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2026-06-21</time></div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/vcenter/">vcenter</a>&nbsp;
+            
+            #<a href="/tags/vcsa/">vcsa</a>&nbsp;
+            
+            #<a href="/tags/vmware/">vmware</a>&nbsp;
+            
+            #<a href="/tags/vmware/">vmware</a>&nbsp;
+            
+            #<a href="/tags/virtualization/">virtualization</a>&nbsp;
+            
+            #<a href="/tags/clustering/">clustering</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <h2 id="-problem">🧩 Problem</h2>
+<p>I wanted to bring my 3 separate ESXi hosts (running on local storage, no shared storage/NAS) under centralized management by deploying vCenter Server Appliance (VCSA) 8.0.3, then clustering all 3 hosts together.</p>
+<p>Along the way, I hit a persistent firstboot failure that took significant troubleshooting to root-cause:</p>
+<pre tabindex="0"><code>
+Error
+
+The supplied System Name &lt;hostname&gt; is not valid.
+
+  
+
+Resolution
+
+If the supplied system name is a FQDN, then make sure the DNS forward lookup
+
+results in at least one valid IP address in the system. If the supplied
+
+system name is an IP address, then it should be one of the valid IP
+
+address(es) in the system.
+</code></pre><p>This happened with <strong>both</strong> <code>vcenter.local</code> and <code>vcenter.lab</code> as the FQDN, despite DNS appearing to be configured correctly.</p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/installing-vcenter-server-8-vcsa-and-clustering-3-esxi-hosts/">[Read more →]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
           <a href="/posts/zabbix-homelab-monitoring/">Building a Hybrid Cloud Monitoring Stack with Zabbix, ZeroTier, and Azure</a>
         </h2>
         <div class="post-meta"><time class="post-date">2026-05-10</time></div>
@@ -363,20 +422,7 @@
 
         <div class="post-content">
           
-            <hr>
-<p>title: Setting up Cloudflare DDNS on Ubuntu using cloudflare-ddns-updater
-date: 2026-03-20
-draft: false
-tags:</p>
-<ul>
-<li>cloudflare</li>
-<li>ddns</li>
-<li>homelab</li>
-<li>ubuntu</li>
-<li>automation</li>
-</ul>
-<hr>
-<h2 id="-problem">🧩 Problem</h2>
+            <h2 id="-problem">🧩 Problem</h2>
 <p>My home network uses a dynamic public IP address, which changes periodically. This breaks remote access to my self-hosted services.</p>
 <hr>
 <h2 id="-solution-overview">🛠️ Solution Overview</h2>
@@ -412,64 +458,15 @@ tags:</p>
         
       </article>
     
-      <article class="post on-list">
-        <h2 class="post-title">
-          <a href="/posts/wazuh-siem-&#43;-ssh-attack-mitigation/">Setting up Wazuh SIEM with SSH Brute Force Attack Detection and Mitigation</a>
-        </h2>
-        <div class="post-meta"><time class="post-date">2026-03-20</time></div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="/tags/wazuh/">wazuh</a>&nbsp;
-            
-            #<a href="/tags/siem/">siem</a>&nbsp;
-            
-            #<a href="/tags/security/">security</a>&nbsp;
-            
-            #<a href="/tags/ssh/">ssh</a>&nbsp;
-            
-            #<a href="/tags/homelab/">homelab</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-
-        <div class="post-content">
-          
-            <h2 id="-problem">🧩 Problem</h2>
-<p>I wanted to simulate a real-world security environment in my homelab where I could detect and respond to SSH brute-force attacks and at the same time monitor my devices</p>
-<hr>
-<h2 id="-solution-overview">🛠️ Solution Overview</h2>
-<p>I deployed Wazuh as a SIEM solution and configured it to detect SSH login attempts and automatically block malicious IPs.</p>
-<hr>
-<h2 id="-environment">🔧 Environment</h2>
-<ul>
-<li>Ubuntu Server (Wazuh Manager)</li>
-<li>Linux target machine (with SSH enabled)</li>
-<li>Public exposure via port forwarding</li>
-</ul>
-<hr>
-<h2 id="-step-1-install-wazuh">🚀 Step 1: Install Wazuh</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh <span style="color:#f92672">&amp;&amp;</span> sudo bash ./wazuh-install.sh -a
-</span></span></code></pre></div><p>After installation, accessed dashboard:</p>
-          
-        </div>
-
-        
-           <div>
-            <a class="read-more button inline" href="/posts/wazuh-siem-&#43;-ssh-attack-mitigation/">[Read more →]</a>
-          </div>
-        
-      </article>
-    
 
     <div class="pagination">
   <div class="pagination__buttons">
     
     
+    
+      <a href="/posts/page/2/" class="button inline next">
+        [<span class="button__text">Older posts</span>] &gt;
+      </a>
     
   </div>
 </div>
